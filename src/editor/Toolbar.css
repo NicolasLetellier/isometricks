@@ -1,0 +1,14 @@
+
+.Toolbar {
+  font-size: 1em;
+  border: 1px solid grey;
+}
+
+.Toolbar-top, .Toolbar-left, .Toolbar-right {
+  margin: 10px;
+}
+
+.Toolbar-top:hover, .Toolbar-left:hover, .Toolbar-right:hover {
+  background-color: silver;
+  cursor: pointer;
+}
