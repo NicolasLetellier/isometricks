@@ -2,10 +2,10 @@
 import React from 'react';
 import './Grid.css';
 
-function Grid() {
+function Grid({ map, activeFace }) {
   return (
     <div className="Grid">
-      Grid
+
     </div>
   );
 }
