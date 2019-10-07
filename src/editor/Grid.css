@@ -1,4 +1,7 @@
 
 .Grid {
-
+  height: 600px;
+  width: 600px;
+  background-color: #EEEEEE;
+  border: 2px solid grey;
 }
