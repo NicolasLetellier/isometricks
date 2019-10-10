@@ -5,8 +5,8 @@ import Frame from './Frame';
 import './Editor.css';
 
 const fixedGridDimensions = {
-  width: 4,
-  height: 3
+  width: 12,
+  height: 20
 };
 
 function Editor() {
