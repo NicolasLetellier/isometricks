@@ -1,17 +1,28 @@
 
 import React from 'react';
-import Grid from './Grid';
-import { mapBuilder } from './gridUtils';
+import TrianglesGrid from './TrianglesGrid';
+import { trianglesMapBuilder } from './gridUtils';
 import './Frame.css';
 
 
-function Frame({ gridDimensionsInCubes, activeFace }) {
-  const map = mapBuilder(gridDimensionsInCubes.width, gridDimensionsInCubes.height);
+function Frame({ gridDimensionsInTriangles, activeFace }) {
+  const trianglesMap = trianglesMapBuilder(gridDimensionsInTriangles.width, gridDimensionsInTriangles.height);
 
-  // we must find a way to not re-render Grid when activeFace change...
+  // WARNING! we must find a way to not re-render Grid when activeFace change...
+
+  // GOAL is to change from triangles grid to points grid and adding
+  // the points events layer too
   return (
     <div className="Frame">
-      <Grid map={map} activeface={activeFace} />
+      <TrianglesGrid
+        gridDimensionsInTriangles={gridDimensionsInTriangles}
+        trianglesMap={trianglesMap}
+      />
+      {/* <TrianglesEventsLayer
+        gridDimensionsInTriangles={gridDimensionsInTriangles}
+        trianglesMap={trianglesMap}
+        activeface={activeFace}
+      /> */}
     </div>
   );
 }

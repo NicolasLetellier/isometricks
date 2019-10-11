@@ -2,18 +2,19 @@
 // WARNING: It is assumed that we will only use the hexagon
 // orientation that is really usefull for isometric drawings:
 // hexagons 'pointy topped'
+// a LOT of calculations are extrapolated based on this assumption
 
 // Here we define this value as a universal basis of the project.
 // This will help to compute other values like svg grid dimensions
 // with only the 2D array dimensions
 const TRIANGLE_EDGE_LENGTH = 1;
 
-function triangleHeight(triangleEdgeLength) {
+function giveTriangleHeight(triangleEdgeLength) {
   return Math.sqrt(3) / 2 * triangleEdgeLength;
 }
 
 // Give orientation of triangle, pointing to left or right
-function giveOrientation(x, y) {
+function giveTriangleOrientation(x, y) {
   // This rule works because we decided to start grid
   // at 0,0 with a left triangle.
   // Using % as we won't have negative coordinates.
@@ -30,13 +31,13 @@ function giveOrientation(x, y) {
 // first, top vertex coordinates
 // second, coordinates of the sided vertex (pointing to left or right)
 // third, bottom vertex coordinates
-function giveCoordinates(x, y, orientation) {
+function giveTriangleCoordinates(x, y, orientation) {
   // for each triangle, we need to calculate:
   // two values of x: x1 and x2
   // and three values of y: y1, y2 and y3
 
-  const x1 = triangleHeight(x * TRIANGLE_EDGE_LENGTH);
-  const x2 = triangleHeight((x + 1) * TRIANGLE_EDGE_LENGTH);
+  const x1 = giveTriangleHeight(x * TRIANGLE_EDGE_LENGTH);
+  const x2 = giveTriangleHeight((x + 1) * TRIANGLE_EDGE_LENGTH);
   const y1 = y * (TRIANGLE_EDGE_LENGTH / 2);
   const y2 = (y * (TRIANGLE_EDGE_LENGTH / 2)) + (TRIANGLE_EDGE_LENGTH / 2);
   const y3 = (y * (TRIANGLE_EDGE_LENGTH / 2)) + TRIANGLE_EDGE_LENGTH;
@@ -58,31 +59,15 @@ function giveCoordinates(x, y, orientation) {
 }
 
 function triangleBuilder(x, y) {
-  const orientation = giveOrientation(x, y);
+  const orientation = giveTriangleOrientation(x, y);
   let triangle = {
     orientation,
-    coordinates: giveCoordinates(x, y, orientation)
+    coordinates: giveTriangleCoordinates(x, y, orientation)
   };
   return triangle;
 }
 
-// dimensions in cubes represent:
-// width: cubes touching each other horizontally by only their side edges (not faces),
-// height: cubes touching each other as if they're stacked (upper and
-// bottom faces touching each other)
-
-function convertWidthInTrangles(gridWidthInCubes) {
-  return gridWidthInCubes * 2; // always even
-}
-
-function convertHeightInTriangles(gridHeightInCubes) {
-  return gridHeightInCubes * 2 + 1; // always odd
-}
-
-function mapBuilder(gridWidthInCubes, gridHeightInCubes) {
-  const gridWidthInTriangles = convertWidthInTrangles(gridWidthInCubes);
-  const gridHeightInTriangles = convertHeightInTriangles(gridHeightInCubes);
-
+function trianglesMapBuilder(gridWidthInTriangles, gridHeightInTriangles) {
   const map = [];
 
   for (let x = 0; x < gridWidthInTriangles; x++) {
@@ -94,4 +79,4 @@ function mapBuilder(gridWidthInCubes, gridHeightInCubes) {
   return map;
 }
 
-export { mapBuilder };
+export { trianglesMapBuilder };

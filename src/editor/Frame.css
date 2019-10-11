@@ -1,5 +1,7 @@
 
 .Frame {
-  height: 90%;
+  height: calc(100vh - 110px);
+  box-sizing: border-box;
+  border: 8px solid silver;
   background-color: #FFFFFF;
 }

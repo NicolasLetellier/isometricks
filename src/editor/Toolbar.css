@@ -1,7 +1,8 @@
 
 .Toolbar {
   font-size: 1em;
-  border: 1px solid grey;
+  box-sizing: border-box;
+  height: 40px;
 }
 
 .Toolbar-top, .Toolbar-left, .Toolbar-right {
