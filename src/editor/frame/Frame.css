@@ -3,5 +3,10 @@
   height: calc(100vh - 110px);
   box-sizing: border-box;
   border: 8px solid silver;
-  background-color: #FFFFFF;
+}
+
+.Frame-svg {
+  height: 100%;
+  width: 100%;
+  background-color: silver;
 }

@@ -19,31 +19,17 @@ function TrianglesGrid({ gridDimensionsInTriangles, trianglesMap }) {
           data-orientation={orientation}
           stroke="grey"
           strokeWidth="0.002"
-          fill="white"
+          fill="transparent"
         />
       ));
     }
   }
 
+  // check g element syntax
   return (
-    <svg
-      className="TrianglesGrid"
-      viewBox={`0 0 ${gridDimensionsInTriangles.height} ${gridDimensionsInTriangles.height}`}
-    >
-      <rect
-        className="TrianglesGrid-background"
-        width="100"
-        height="100"
-        fill="silver"
-      />
+    <g className="TrianglesGrid">
       {trianglesPolygons}
-      <polygon
-        points="1.2,2 3,4 4,4"
-        stroke="green"
-        fill="transparent"
-        strokeWidth="0.1"
-      />
-    </svg>
+    </g>
   );
 }
 
