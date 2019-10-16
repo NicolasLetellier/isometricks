@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
-import Toolbar from './Toolbar';
-import Frame from './Frame';
+import Toolbar from './toolbar/Toolbar';
+import Frame from './frame/Frame';
 import './Editor.css';
 
 // to start before having grid size selector,
