@@ -23,9 +23,11 @@ function TrianglesGrid({ gridDimensionsInTriangles, trianglesMap, triangleClickH
           stroke="silver"
           strokeWidth="0.01"
           fill="transparent"
-          onClick={() => triangleClickHandler(
-            {x, y},
-            triangleMapData
+          onClick={triangleClickHandler && (
+            () => triangleClickHandler(
+              {x, y},
+              triangleMapData
+            )
           )}
         />
       ));

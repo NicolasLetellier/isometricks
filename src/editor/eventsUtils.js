@@ -1,6 +1,8 @@
 
-// may be interesant to return points directly as string
-// as in svg syntax??????
+// return points in an array of coordinates, not svg syntax,
+// as: [[x1,y1], [x2,y2], [x3,y3], [x4,y4]]
+// (to have the same format for future 'shape' points, that COULD need
+// it for history navigation...)
 function calculateFacePoints(
   triangleMapCoord,
   triangleMapData,

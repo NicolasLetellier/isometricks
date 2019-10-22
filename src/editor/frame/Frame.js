@@ -30,7 +30,7 @@ function Frame({
         key={index}
         points={points}
         stroke="none"
-        fill={drawing.color}
+        fill={drawing.fill}
       />
     ));
   });

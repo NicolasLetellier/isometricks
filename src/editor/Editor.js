@@ -30,19 +30,20 @@ function Editor() {
       trianglesMap,
       activeFace
     );
-    let color; // any css syntax accepted
+    let fill; // any css color syntax accepted
     if (activeFace === 'top') {
-      color = 'lightskyblue';
+      fill = 'lightskyblue';
     } else if (activeFace === 'right') {
-      color = 'mediumblue';
+      fill = 'mediumblue';
     } else if (activeFace === 'left') {
-      color = 'royalblue';
+      fill = 'royalblue';
     }
     const drawing = {
-      origin: 'triangle', // other will be 'point' when implemented
-      orientation: triangleMapData.orientation,
+      type: 'face', // other will be 'shape' when implemented
       points,
-      color
+      fill
+      // stroke and stroke-width: configurables too!
+      // orientation: needed?
     };
     const actualisedDrawingHistory = drawingHistory.concat(drawing);
     setDrawingHistory(actualisedDrawingHistory);
