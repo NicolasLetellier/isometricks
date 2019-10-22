@@ -60,13 +60,12 @@ function Frame({
           height={gridDimensions.height}
           className="Frame-background"
           stroke="none"
-          fill={'ivory'}
+          fill={'white'}
         />
         <TrianglesGrid
           presentation={triangleBackgroundPresentation}
           gridDimensionsInTriangles={gridDimensionsInTriangles}
           trianglesMap={trianglesMap}
-          triangleClickHandler={triangleClickHandler}
         />
         {drawingPolygons}
         <TrianglesGrid
