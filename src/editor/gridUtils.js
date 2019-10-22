@@ -4,9 +4,8 @@
 // hexagons 'pointy topped'
 // a LOT of calculations are extrapolated based on this assumption
 
-// Here we define this value as a universal basis of the project.
-// This will help to compute other values like svg grid dimensions
-// with only the 2D array dimensions
+// Here we define this value (1) as a universal basis of the project.
+// This will help to visualize other values like svg grid dimensions
 const TRIANGLE_EDGE_LENGTH = 1;
 
 function giveTriangleHeight(triangleEdgeLength) {
@@ -79,4 +78,13 @@ function trianglesMapBuilder(gridWidthInTriangles, gridHeightInTriangles) {
   return map;
 }
 
-export { trianglesMapBuilder };
+function calculateGridDimensions(gridWidthInTriangles, gridHeightInTriangles) {
+  const width = gridWidthInTriangles * giveTriangleHeight(TRIANGLE_EDGE_LENGTH);
+  const height = ((gridHeightInTriangles - 1) * TRIANGLE_EDGE_LENGTH / 2) + TRIANGLE_EDGE_LENGTH;
+  return {
+    width,
+    height
+  };
+}
+
+export { trianglesMapBuilder, calculateGridDimensions };

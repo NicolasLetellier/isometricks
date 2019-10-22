@@ -1,30 +1,61 @@
 
 import React from 'react';
 import TrianglesGrid from './TrianglesGrid';
-import { trianglesMapBuilder } from './gridUtils';
+import { calculateGridDimensions } from './../gridUtils';
 import './Frame.css';
 
 
-function Frame({ gridDimensionsInTriangles, activeFace }) {
-  const trianglesMap = trianglesMapBuilder(gridDimensionsInTriangles.width, gridDimensionsInTriangles.height);
+function Frame({
+  gridDimensionsInTriangles,
+  trianglesMap,
+  triangleClickHandler,
+  drawingHistory
+}) {
+  const gridDimensions = calculateGridDimensions(gridDimensionsInTriangles.width, gridDimensionsInTriangles.height);
 
-  // WARNING! we must find a way to not re-render Grid when activeFace change...
+  // WARNING! we must find a way to not re-render Grid when activeFace,
+  // colors or drawing history change...
 
   // GOAL is to change the visible grid from triangles grid to points grid,
   // but conserve these two layers for related events
 
-  // viewbox: must adjust to sizes calculated from gridDimensionsInTriangles to
-  // true grid dimensions (based on triangle side = 1)
+  const drawingPolygons = [];
+
+  drawingHistory.forEach((drawing, index) => {
+    const points = drawing.points.reduce((acc, value) => {
+      return (acc + `${value[0]},${value[1]} `);
+    }, '');
+    drawingPolygons.push((
+      <polygon
+        key={index}
+        points={points}
+        stroke="none"
+        fill={drawing.color}
+      />
+    ));
+  });
+
   return (
     <div className="Frame">
       <svg
         className="Frame-svg"
-        viewBox={`0 0 1 2`}
+        viewBox={`0 0 ${gridDimensions.width} ${gridDimensions.height}`}
+        preserveAspectRatio="xMidYMin"
       >
+        <rect
+          x="0"
+          y="0"
+          width={gridDimensions.width}
+          height={gridDimensions.height}
+          className="Frame-background"
+          stroke="none"
+          fill={'ivory'}
+        />
+        {drawingPolygons}
         <TrianglesGrid
           gridDimensionsInTriangles={gridDimensionsInTriangles}
           trianglesMap={trianglesMap}
-          activeface={activeFace}
+          triangleClickHandler={triangleClickHandler}
         />
       </svg>
     </div>
