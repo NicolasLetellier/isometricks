@@ -2,7 +2,12 @@
 import React from 'react';
 import './TrianglesGrid.css';
 
-function TrianglesGrid({ gridDimensionsInTriangles, trianglesMap, triangleClickHandler }) {
+function TrianglesGrid({
+  presentation,
+  gridDimensionsInTriangles,
+  trianglesMap,
+  triangleClickHandler
+}) {
 
   const trianglesPolygons = [];
   for (let x = 0; x < gridDimensionsInTriangles.width; x++) {
@@ -20,9 +25,9 @@ function TrianglesGrid({ gridDimensionsInTriangles, trianglesMap, triangleClickH
           key={`${x},${y}`}
           points={`${topCoord[0]},${topCoord[1]} ${sideCoord[0]},${sideCoord[1]} ${bottomCoord[0]},${bottomCoord[1]}`}
           data-orientation={orientation}
-          stroke="silver"
-          strokeWidth="0.01"
-          fill="transparent"
+          stroke={presentation.stroke}
+          strokeWidth={presentation.strokeWidth}
+          fill={presentation.fill}
           onClick={triangleClickHandler && (
             () => triangleClickHandler(
               {x, y},

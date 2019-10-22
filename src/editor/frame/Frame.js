@@ -19,6 +19,17 @@ function Frame({
   // GOAL is to change the visible grid from triangles grid to points grid,
   // but conserve these two layers for related events
 
+  const triangleBackgroundPresentation = {
+    stroke: 'silver',
+    strokeWidth: '0.01',
+    fill: 'transparent'
+  };
+
+  const triangleEventsPresentation = {
+    stroke: 'none',
+    fill: 'transparent'
+  };
+
   const drawingPolygons = [];
 
   drawingHistory.forEach((drawing, index) => {
@@ -51,8 +62,15 @@ function Frame({
           stroke="none"
           fill={'ivory'}
         />
+        <TrianglesGrid
+          presentation={triangleBackgroundPresentation}
+          gridDimensionsInTriangles={gridDimensionsInTriangles}
+          trianglesMap={trianglesMap}
+          triangleClickHandler={triangleClickHandler}
+        />
         {drawingPolygons}
         <TrianglesGrid
+          presentation={triangleEventsPresentation}
           gridDimensionsInTriangles={gridDimensionsInTriangles}
           trianglesMap={trianglesMap}
           triangleClickHandler={triangleClickHandler}
