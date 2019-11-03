@@ -9,7 +9,7 @@ function Frame({
   gridDimensionsInTriangles,
   trianglesMap,
   triangleClickHandler,
-  drawingHistory
+  polygonStack
 }) {
   const gridDimensions = calculateGridDimensions(gridDimensionsInTriangles.width, gridDimensionsInTriangles.height);
 
@@ -32,8 +32,8 @@ function Frame({
 
   const drawingPolygons = [];
 
-  drawingHistory.forEach((drawing, index) => {
-    const points = drawing.points.reduce((acc, value) => {
+  polygonStack.forEach((polygon, index) => {
+    const points = polygon.points.reduce((acc, value) => {
       return (acc + `${value[0]},${value[1]} `);
     }, '');
     drawingPolygons.push((
@@ -41,7 +41,7 @@ function Frame({
         key={index}
         points={points}
         stroke="none"
-        fill={drawing.fill}
+        fill={polygon.fill}
       />
     ));
   });

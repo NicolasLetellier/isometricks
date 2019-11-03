@@ -17,19 +17,29 @@ const FIXED_GRID_DIMENSIONS = {
 
 function Editor() {
   const [gridDimensionsInTriangles, setGridDimensionsInTriangles] = useState(FIXED_GRID_DIMENSIONS);
-  // activeface set to null: inactivate any click event
-  const [activeFace, setActiveFace] = useState('top');
-  const [drawingHistory, setDrawingHistory] = useState([]);
+  const [activeFace, setActiveFace] = useState(null);
+  // history array of polygon stacks
+  // polygon stack: array of polygon objects to be draw
+  const [stacksHistory, setStacksHistory] = useState([[]]);
 
   const trianglesMap = trianglesMapBuilder(gridDimensionsInTriangles.width, gridDimensionsInTriangles.height);
 
   function triangleClickHandler(triangleMapCoord, triangleMapData) {
+    if (activeFace === null) { // activeFace set to null: inactivate any click event
+      return;
+    }
+
     const points = calculateFacePoints(
       triangleMapCoord,
       triangleMapData,
       trianglesMap,
       activeFace
     );
+
+    if (points === undefined) { // invalid event on grid edge
+      return;
+    }
+
     let fill; // any css color syntax accepted
     if (activeFace === 'top') {
       fill = 'lightskyblue';
@@ -38,15 +48,21 @@ function Editor() {
     } else if (activeFace === 'left') {
       fill = 'royalblue';
     }
-    const drawing = {
+
+    const polygon = {
       type: 'face', // other will be 'shape' when implemented
       points,
       fill
       // stroke and stroke-width: configurables too!
-      // orientation: needed?
+      // orientation: needed? > probably for changing all
+      // similar faces color at once and for detecting exactly repeated faces
     };
-    const actualisedDrawingHistory = drawingHistory.concat(drawing);
-    setDrawingHistory(actualisedDrawingHistory);
+
+    const previousPolygonStack = stacksHistory[stacksHistory.length - 1];
+    const actualisedPolygonStack = previousPolygonStack.concat(polygon);
+    const stacksHistoryCopy = [...stacksHistory];
+    stacksHistoryCopy.push(actualisedPolygonStack);
+    setStacksHistory(stacksHistoryCopy);
   }
 
   return (
@@ -56,7 +72,7 @@ function Editor() {
         gridDimensionsInTriangles={gridDimensionsInTriangles}
         trianglesMap={trianglesMap}
         triangleClickHandler={triangleClickHandler}
-        drawingHistory={drawingHistory}
+        polygonStack={stacksHistory[stacksHistory.length - 1]}
       />
     </div>
   );

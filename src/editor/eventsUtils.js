@@ -2,7 +2,8 @@
 // return points in an array of coordinates, not svg syntax,
 // as: [[x1,y1], [x2,y2], [x3,y3], [x4,y4]]
 // (to have the same format for future 'shape' points, that COULD need
-// it for history navigation...)
+// it for history navigation...) > BUT performance considerations (i.e. looping on it twice)?
+// return undefined if complementary triangle for this face is out of grid.
 function calculateFacePoints(
   triangleMapCoord,
   triangleMapData,
@@ -15,13 +16,21 @@ function calculateFacePoints(
   const points = [];
   if (activeFace === 'left' || activeFace === 'right') {
     if (orientation === activeFace) {
-      const upperTriangleCoord = trianglesMap[triangleMapCoord.x][triangleMapCoord.y - 1].coordinates;
+      const upperTriangle = trianglesMap[triangleMapCoord.x][triangleMapCoord.y - 1];
+      if (upperTriangle === undefined) { // complementary triangle for this face is out of grid
+        return;
+      }
+      const upperTriangleCoord = upperTriangle.coordinates;
       points.push(upperTriangleCoord.topVertexCoord);
       points.push(eventTriangleCoord.topVertexCoord);
       points.push(eventTriangleCoord.bottomVertexCoord);
       points.push(eventTriangleCoord.sideVertexCoord);
     } else {
-      const lowerTriangleCoord = trianglesMap[triangleMapCoord.x][triangleMapCoord.y + 1].coordinates;
+      const lowerTriangle = trianglesMap[triangleMapCoord.x][triangleMapCoord.y + 1];
+      if (lowerTriangle === undefined) { // complementary triangle for this face is out of grid
+        return;
+      }
+      const lowerTriangleCoord = lowerTriangle.coordinates;
       points.push(eventTriangleCoord.topVertexCoord);
       points.push(eventTriangleCoord.sideVertexCoord);
       points.push(lowerTriangleCoord.bottomVertexCoord);
@@ -29,13 +38,21 @@ function calculateFacePoints(
     }
   } else if (activeFace === 'top') {
     if (orientation === 'left') {
-      const onRightTriangleCoord = trianglesMap[triangleMapCoord.x + 1][triangleMapCoord.y].coordinates;
+      const onRightRow = trianglesMap[triangleMapCoord.x + 1];
+      if (onRightRow === undefined) { // complementary triangle for this face is out of grid
+        return;
+      }
+      const onRightTriangleCoord = onRightRow[triangleMapCoord.y].coordinates;
       points.push(eventTriangleCoord.topVertexCoord);
       points.push(onRightTriangleCoord.sideVertexCoord);
       points.push(eventTriangleCoord.bottomVertexCoord);
       points.push(eventTriangleCoord.sideVertexCoord);
     } else if (orientation === 'right') {
-      const onLeftTriangleCoord = trianglesMap[triangleMapCoord.x - 1][triangleMapCoord.y].coordinates;
+      const onLeftRow = trianglesMap[triangleMapCoord.x - 1];
+      if (onLeftRow === undefined) { // complementary triangle for this face is out of grid
+        return;
+      }
+      const onLeftTriangleCoord = onLeftRow[triangleMapCoord.y].coordinates;
       points.push(eventTriangleCoord.topVertexCoord);
       points.push(eventTriangleCoord.sideVertexCoord);
       points.push(eventTriangleCoord.bottomVertexCoord);
