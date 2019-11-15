@@ -4,6 +4,10 @@
 // (to have the same format for future 'shape' points, that COULD need
 // it for history navigation...) > BUT performance considerations (i.e. looping on it twice)?
 // return undefined if complementary triangle for this face is out of grid.
+
+// for every activeFace, points coords are ordened in only one way,
+// to enable 'repeated faces' comparisons
+// BE CAREFULL, this rule won't apply to 'shape' polygons!!
 function calculateFacePoints(
   triangleMapCoord,
   triangleMapData,

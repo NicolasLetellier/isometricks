@@ -27,6 +27,10 @@ function Editor() {
   // length shouldn't be less than 1
   const historyLastIndex = stacksHistory.length - 1;
 
+  function currentHistoryIndex() {
+    return (historyNavIndex === null) ? historyLastIndex : historyNavIndex;
+  }
+
   const trianglesMap = trianglesMapBuilder(gridDimensionsInTriangles.width, gridDimensionsInTriangles.height);
 
   function backwardInHistory() {
@@ -61,14 +65,31 @@ function Editor() {
     }
   }
 
-  function currentHistoryIndex() {
-    return (historyNavIndex === null) ? historyLastIndex : historyNavIndex;
+  // check if this face is exactly the same as an older one,
+  // and remove it because it would be exactly covered by the new one.
+  // (maybe disable this if in case of use of transparent colors for upper one??)
+  // BE CAREFULL, it won't work in comparing 'shape' coords!
+  // if exactly repeated polygons (same colors, etc...) it will give the impression
+  // when using history nav that nothing was done on this action... but necesary if
+  // some parts of other faces are between the two equals polygons (stack order
+  // has to be corrected)
+  function actualiseStack(previousStack, polygon) {
+    let previousStackCopy = [...previousStack];
+    const polygonCoordsString = polygon.points.flat().toString();
+    for (let i = 0; i < previousStackCopy.length; i++) {
+      const previousPolygonCoordsString = previousStackCopy[i].points.flat().toString();
+      if (previousPolygonCoordsString === polygonCoordsString) {
+        previousStackCopy.splice(i, 1);
+        break; // no possible other repeated faces as it's always checked
+      }
+    }
+    return previousStackCopy.concat(polygon);
   }
 
   // truncate forward history to add new stack if currently in history navigation
-  function addPolygonToStack(polygon) {
+  function addPolygonIntoStacksHistory(polygon) {
     const previousPolygonStack = stacksHistory[currentHistoryIndex()];
-    const actualisedPolygonStack = previousPolygonStack.concat(polygon);
+    const actualisedPolygonStack = actualiseStack(previousPolygonStack, polygon);
     const slicedHistory = stacksHistory.slice(0, currentHistoryIndex() + 1);
     slicedHistory.push(actualisedPolygonStack);
     setStacksHistory(slicedHistory);
@@ -109,7 +130,7 @@ function Editor() {
       // similar faces color at once and for detecting exactly repeated faces
     };
 
-    addPolygonToStack(polygon);
+    addPolygonIntoStacksHistory(polygon);
   }
 
   return (
