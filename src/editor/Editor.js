@@ -16,7 +16,7 @@ const FIXED_GRID_DIMENSIONS = {
 };
 
 function Editor() {
-  const [gridDimensionsInTriangles, setGridDimensionsInTriangles] = useState(FIXED_GRID_DIMENSIONS);
+  // const [gridDimensionsInTriangles, setGridDimensionsInTriangles] = useState(FIXED_GRID_DIMENSIONS);
   const [activeFace, setActiveFace] = useState(null);
   // history array of polygon stacks
   // polygon stack: array of polygon objects to be draw
@@ -31,7 +31,7 @@ function Editor() {
     return (historyNavIndex === null) ? historyLastIndex : historyNavIndex;
   }
 
-  const trianglesMap = trianglesMapBuilder(gridDimensionsInTriangles.width, gridDimensionsInTriangles.height);
+  const trianglesMap = trianglesMapBuilder(FIXED_GRID_DIMENSIONS.width, FIXED_GRID_DIMENSIONS.height);
 
   function backwardInHistory() {
     if (historyNavIndex === null) {
@@ -141,7 +141,7 @@ function Editor() {
         forwardInHistory={forwardInHistoryProp()}
       />
       <Frame
-        gridDimensionsInTriangles={gridDimensionsInTriangles}
+        gridDimensionsInTriangles={FIXED_GRID_DIMENSIONS}
         trianglesMap={trianglesMap}
         triangleClickHandler={triangleClickHandler}
         polygonStack={stacksHistory[currentHistoryIndex()]}
