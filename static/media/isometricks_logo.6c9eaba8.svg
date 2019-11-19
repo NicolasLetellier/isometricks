@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   id="svg1846"
+   version="1.1"
+   viewBox="0 0 149.69435 33.32135"
+   height="33.32135mm"
+   width="149.69435mm">
+  <defs
+     id="defs1840">
+    <linearGradient
+       gradientUnits="userSpaceOnUse"
+       y2="100.86892"
+       x2="59.54081"
+       y1="91.227745"
+       x1="48.85318"
+       id="linearGradient1556-7-4"
+       xlink:href="#linearGradient1659"
+       gradientTransform="matrix(1.4544474,0,0,1.4544474,-42.299721,-57.200337)" />
+    <linearGradient
+       id="linearGradient1659">
+      <stop
+         style="stop-color:#f859f8;stop-opacity:1"
+         offset="0"
+         id="stop1655" />
+      <stop
+         style="stop-color:#810db9;stop-opacity:1"
+         offset="1"
+         id="stop1657" />
+    </linearGradient>
+  </defs>
+  <metadata
+     id="metadata1843">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     transform="translate(-25.061723,-67.293978)"
+     id="layer1">
+    <text
+       id="text817-1-1-3-4"
+       y="86.800331"
+       x="49.174274"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:23.4963932px;line-height:1.25;font-family:Baloo;-inkscape-font-specification:Baloo;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.73426229"
+       xml:space="preserve"><tspan
+         style="fill:#ffffff;stroke-width:0.73426229"
+         y="86.800331"
+         x="49.174274"
+         id="tspan815-0-4-33-8">isometricks</tspan></text>
+    <path
+       id="rect824-1-7-9-7-7"
+       d="M 25.061723,100.61533 44.299252,89.508202 V 67.293978 L 25.061723,78.401104 Z"
+       style="opacity:1;fill:url(#linearGradient1556-7-4);fill-opacity:1;stroke:none;stroke-width:6.14731121;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+  </g>
+</svg>
