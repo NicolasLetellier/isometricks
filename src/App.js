@@ -1,7 +1,7 @@
 
 import React from 'react';
 import Editor from './editor/Editor';
-import logo from './logo.svg';
+import logo from './isometricks_logo.svg';
 import './App.css';
 
 function App() {
