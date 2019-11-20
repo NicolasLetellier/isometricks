@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "8690b1cc487ee480344ca3356f6f1bce",
+    "revision": "a8373cf3395e4f4dca62ef1563f6a52d",
     "url": "/index.html"
   },
   {
-    "revision": "f4837cb816a28fdb5f63",
+    "revision": "6c5493e40546d0f6e77c",
     "url": "/static/css/main.63a296f9.chunk.css"
   },
   {
@@ -12,15 +12,15 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/static/js/2.5ec3120b.chunk.js"
   },
   {
-    "revision": "f4837cb816a28fdb5f63",
-    "url": "/static/js/main.2fd977e2.chunk.js"
+    "revision": "6c5493e40546d0f6e77c",
+    "url": "/static/js/main.a883b850.chunk.js"
   },
   {
     "revision": "a5397c7886a48e7442b4",
     "url": "/static/js/runtime-main.11238b65.js"
   },
   {
-    "revision": "6c9eaba84c0cf84a217b84347f42c4c8",
-    "url": "/static/media/isometricks_logo.6c9eaba8.svg"
+    "revision": "97a2561274c13a6b087b455cff678f5d",
+    "url": "/static/media/isometricks_logo.97a25612.svg"
   }
 ]);
