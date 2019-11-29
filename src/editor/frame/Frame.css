@@ -1,12 +1,12 @@
 
 .Frame {
-  height: calc(100vh - 110px);
+  height: calc(100vh - 106px);
   box-sizing: border-box;
-  border: 8px solid silver;
+  border: 8px solid #dddddd;
 }
 
 .Frame-svg {
   height: 100%;
   width: 100%;
-  background-color: silver;
+  background-color: #ddddde;
 }

@@ -11,13 +11,13 @@ import './Editor.css';
 // to start before having grid size selector,
 // indicated in triangles
 const FIXED_GRID_DIMENSIONS = {
-  width: 33,
-  height: 45
+  width: 19,
+  height: 39
 };
 
 function Editor() {
   // const [gridDimensionsInTriangles, setGridDimensionsInTriangles] = useState(FIXED_GRID_DIMENSIONS);
-  const [activeFace, setActiveFace] = useState(null);
+  const [activeFace, setActiveFace] = useState('left');
   // history array of polygon stacks
   // polygon stack: array of polygon objects to be draw
   const [stacksHistory, setStacksHistory] = useState([[]]);
@@ -136,6 +136,7 @@ function Editor() {
   return (
     <div className="Editor">
       <Toolbar
+        activeFace={activeFace}
         setActiveFace={setActiveFace}
         backwardInHistory={backwardInHistoryProp()}
         forwardInHistory={forwardInHistoryProp()}

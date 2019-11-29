@@ -2,14 +2,76 @@
 .Toolbar {
   font-size: 1em;
   box-sizing: border-box;
-  height: 40px;
+  height: 44px;
+  background-color: #555555;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
 }
 
-.Toolbar-top, .Toolbar-left, .Toolbar-right {
-  margin: 10px;
+.Toolbar .left-buttons, .Toolbar .center-buttons, .Toolbar .right-buttons {
+  flex: 0 0 auto;
 }
 
-.Toolbar-top:hover, .Toolbar-left:hover, .Toolbar-right:hover {
-  background-color: silver;
+.Toolbar button {
+  border: none;
+  padding: 7px;
+  margin: 0;
+  box-sizing: border-box;
+  height: 44px;
+  width: 51px; /* to harmonize width with button.top */
+  background-color: transparent;
+  border-left: 1px solid #555555;
+  border-right: 1px solid #555555;
+}
+
+.Toolbar button.top {
+  /* button width for top face is limiting/defining svg size, when
+  for left and right it's the button height. Here width calculated
+  for same face size when height is 44px */
+  width: 51px;
+}
+
+.Toolbar .backward, .Toolbar .forward {
+  padding: 9px;
+}
+
+.Toolbar button:focus {
+  outline: none;
+}
+
+.Toolbar button:hover {
   cursor: pointer;
+}
+
+.Toolbar button:hover polygon, .Toolbar button:hover path {
+  fill: #ffffff;
+}
+
+.Toolbar button.active {
+  background-color: #323232;
+  border-left: 1px solid #2b2b2b;
+  border-right: 1px solid #2b2b2b;
+}
+
+.Toolbar button.active polygon, .Toolbar button.active path {
+  fill: #ffffff;
+}
+
+.Toolbar button:disabled {
+  cursor: not-allowed;
+}
+
+.Toolbar button:disabled polygon, .Toolbar button:disabled path {
+  fill: #7c7c7c;
+}
+
+.Toolbar svg, .Toolbar img {
+  height: 100%;
+  width: 100%;
+}
+
+.Toolbar polygon, .Toolbar path {
+  fill: #dadada;
+  stroke: none;
 }
