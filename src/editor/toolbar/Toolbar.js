@@ -1,12 +1,23 @@
 
 import React from 'react';
+
+import GridSize from './GridSize';
 import './Toolbar.css';
 
-function Toolbar({ activeFace, setActiveFace, backwardInHistory, forwardInHistory }) {
+function Toolbar({
+  activeFace,
+  setActiveFace,
+  backwardInHistory,
+  forwardInHistory,
+  setGridDimensionsInTriangles
+}) {
   return (
     <div className="Toolbar">
-      {/* <div className="left-buttons">
-      </div> */}
+      <div className="left-buttons">
+        <GridSize
+          setGridDimensionsInTriangles={setGridDimensionsInTriangles}
+        />
+      </div>
       <div className="center-buttons">
         <button
           type="button"

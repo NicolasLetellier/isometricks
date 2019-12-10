@@ -8,15 +8,16 @@ import Toolbar from './toolbar/Toolbar';
 import Frame from './frame/Frame';
 import './Editor.css';
 
-// to start before having grid size selector,
+// default grid size on start,
 // indicated in triangles
-const FIXED_GRID_DIMENSIONS = {
-  width: 19,
-  height: 39
+const START_GRID_DIMENSIONS = {
+  width: 17,
+  height: 33
 };
 
+
 function Editor() {
-  // const [gridDimensionsInTriangles, setGridDimensionsInTriangles] = useState(FIXED_GRID_DIMENSIONS);
+  const [gridDimensionsInTriangles, setGridDimensionsInTriangles] = useState(START_GRID_DIMENSIONS);
   const [activeFace, setActiveFace] = useState('left');
   // history array of polygon stacks
   // polygon stack: array of polygon objects to be draw
@@ -31,7 +32,7 @@ function Editor() {
     return (historyNavIndex === null) ? historyLastIndex : historyNavIndex;
   }
 
-  const trianglesMap = trianglesMapBuilder(FIXED_GRID_DIMENSIONS.width, FIXED_GRID_DIMENSIONS.height);
+  const trianglesMap = trianglesMapBuilder(gridDimensionsInTriangles.width, gridDimensionsInTriangles.height);
 
   function backwardInHistory() {
     if (historyNavIndex === null) {
@@ -140,9 +141,10 @@ function Editor() {
         setActiveFace={setActiveFace}
         backwardInHistory={backwardInHistoryProp()}
         forwardInHistory={forwardInHistoryProp()}
+        setGridDimensionsInTriangles={setGridDimensionsInTriangles}
       />
       <Frame
-        gridDimensionsInTriangles={FIXED_GRID_DIMENSIONS}
+        gridDimensionsInTriangles={gridDimensionsInTriangles}
         trianglesMap={trianglesMap}
         triangleClickHandler={triangleClickHandler}
         polygonStack={stacksHistory[currentHistoryIndex()]}
