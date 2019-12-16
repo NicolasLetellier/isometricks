@@ -11,7 +11,7 @@ import './Editor.css';
 // default grid size on start,
 // indicated in triangles
 const START_GRID_DIMENSIONS = {
-  width: 17,
+  width: 15,
   height: 33
 };
 
@@ -128,7 +128,7 @@ function Editor() {
       fill
       // stroke and stroke-width: configurables too!
       // orientation: needed? > probably for changing all
-      // similar faces color at once and for detecting exactly repeated faces
+      // similar faces color at once
     };
 
     addPolygonIntoStacksHistory(polygon);

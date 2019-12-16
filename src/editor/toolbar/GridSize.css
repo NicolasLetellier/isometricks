@@ -1,2 +1,34 @@
 
+.grid-size-wrapper {
+  position: absolute;
+}
 
+/* .grid-size-button {
+} */
+
+.grid-size-dropdown {
+  position: relative;
+  padding: 8px 20px 20px 20px;
+  border: 2px solid #aaaaaa;
+  background-color: #f6f6f6;
+}
+
+.grid-size-dropdown p {
+  margin-bottom: 24px;
+}
+
+.radio-component {
+  margin-bottom: 18px;
+}
+.radio-component label {
+  margin-left: 6px;
+}
+
+.radio-component input:hover, .radio-component label:hover {
+  cursor: pointer;
+}
+
+.apply-grid-size {
+  margin-top: 10px;
+  margin-right: 28px;
+}

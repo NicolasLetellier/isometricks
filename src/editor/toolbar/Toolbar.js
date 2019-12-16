@@ -21,7 +21,7 @@ function Toolbar({
       <div className="center-buttons">
         <button
           type="button"
-          className={`left ${activeFace === 'left' && 'active'}`}
+          className={`left toolbar-btn ${activeFace === 'left' && 'active'}`}
           onClick={() => setActiveFace('left')}
         >
           <svg
@@ -35,7 +35,7 @@ function Toolbar({
         </button>
         <button
           type="button"
-          className={`top ${activeFace === 'top' && 'active'}`}
+          className={`top toolbar-btn ${activeFace === 'top' && 'active'}`}
           onClick={() => setActiveFace('top')}
         >
           <svg
@@ -49,7 +49,7 @@ function Toolbar({
         </button>
         <button
           type="button"
-          className={`right ${activeFace === 'right' && 'active'}`}
+          className={`right toolbar-btn ${activeFace === 'right' && 'active'}`}
           onClick={() => setActiveFace('right')}
         >
           <svg
@@ -65,7 +65,7 @@ function Toolbar({
       <div className="right-buttons">
         <button
           type="button"
-          className="backward"
+          className="backward toolbar-btn"
           disabled={backwardInHistory === null}
           onClick={backwardInHistory}
         >
@@ -79,7 +79,7 @@ function Toolbar({
         </button>
         <button
           type="button"
-          className="forward"
+          className="forward toolbar-btn"
           disabled={forwardInHistory === null}
           onClick={forwardInHistory}
         >
