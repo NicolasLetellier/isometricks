@@ -74,6 +74,7 @@ function GridSize({ setGridDimensionsInTriangles }) {
           <button
             type="button"
             className="apply-grid-size dialog-btn"
+            disabled={selectedDimensions === null}
             onClick={() => applySelection()}
           >
             Apply
