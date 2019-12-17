@@ -42,12 +42,12 @@
   padding: 8px;
   background-color: #f2f2f2;
   font-size: 1em;
-  border-color: #bbbbbb;
+  border: 1px solid #bbbbbb;
 }
 
 .Toolbar .dialog-btn:hover {
   background-color: #eaeaea;
-  border-color: #aaaaaa;
+  border: 1px solid #aaaaaa;
 }
 
 
