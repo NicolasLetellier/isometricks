@@ -16,4 +16,4 @@ The web app is hosted in Github pages, with the help of [gh-pages](https://creat
 
 The font used in the isometricks logo is [baloo](https://www.fontsquirrel.com/fonts/baloo), from fontsquirrel.
 
-The icons used in the toolbar are made by [Freepik](https://www.flaticon.com/authors/freepik) from [www.flaticon.com](https://www.flaticon.com/), even if their SVGs are embedded in code.
+The icons used in the toolbar are made by [Freepik](https://www.flaticon.com/authors/freepik), [bqlqn](https://www.flaticon.com/authors/bqlqn) and [Those Icons](https://www.flaticon.com/authors/those-icons) from [www.flaticon.com](https://www.flaticon.com/), even if their SVGs are modified and/or embedded in code.

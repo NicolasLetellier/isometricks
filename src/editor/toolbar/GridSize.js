@@ -26,16 +26,19 @@ function GridSize({ setGridDimensionsInTriangles }) {
     <div className="grid-size-wrapper">
       <button
         type="button"
-        className={`grid-size-button toolbar-btn ${onEdit && 'active'}`}
+        className={`grid-size toolbar-btn ${onEdit && 'active'}`}
         onClick={() => setOnEdit(!onEdit)}
       >
         <svg
-          viewBox="0 0 0.8660 1.5"
+          viewBox="0 0 42 47.75"
         >
-          <polygon
-            points="0,0 0.8660,0.5 0.8660,1.5 0,1"
-          >
-          </polygon>
+          <path
+            d="m 40,47.75 c 1.104,0 2,-0.896 2,-2 v -24 c 0,-0.53 -0.211,-1.039 -0.586,-1.414 l -8,-8 C 33.039,11.961 32.53,11.75 32,11.75 H 14 c -1.104,0 -2,0.896 -2,2 v 32 c 0,1.104 0.896,2 2,2 z m -3.829,-27 H 32 V 16.579 Z M 16,15.75 h 12 v 7 c 0,1.104 0.896,2 2,2 h 8 v 19 H 16 Z" />
+          <path
+            d="m 38,6 c 0,1.104 0.896,2 2,2 1.104,0 2,-0.896 2,-2 V 2 C 42,0.896 41.104,0 40,0 38.896,0 38,0.896 38,2 H 16 C 16,0.896 15.104,0 14,0 12.896,0 12,0.896 12,2 v 4 c 0,1.104 0.896,2 2,2 1.104,0 2,-0.896 2,-2"
+          />
+          <path
+            d="m 0,45.75 c 0,1.104 0.896,2 2,2 h 4 c 1.104,0 2,-0.896 2,-2 0,-1.104 -0.896,-2 -2,-2 v -28 c 1.104,0 2,-0.896 2,-2 0,-1.104 -0.896,-2 -2,-2 H 2 c -1.104,0 -2,0.896 -2,2 0,1.104 0.896,2 2,2 v 28 c -1.104,0 -2,0.896 -2,2 z" />
         </svg>
       </button>
       {onEdit && (
