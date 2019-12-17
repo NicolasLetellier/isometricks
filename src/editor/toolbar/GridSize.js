@@ -22,12 +22,20 @@ function GridSize({ setGridDimensionsInTriangles }) {
     setOnEdit(false);
   }
 
+  function toogleDialog() {
+    if (onEdit === false) {
+      setOnEdit(true);
+    } else {
+      closeDialog();
+    }
+  }
+
   return (
     <div className="grid-size-wrapper">
       <button
         type="button"
         className={`grid-size toolbar-btn ${onEdit && 'active'}`}
-        onClick={() => setOnEdit(!onEdit)}
+        onClick={() => toogleDialog()}
       >
         <svg
           viewBox="0 0 42 47.75"
