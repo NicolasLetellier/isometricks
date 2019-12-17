@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/static/css/main.ca41584b.chunk.css",
-    "main.js": "/static/js/main.d804467d.chunk.js",
-    "main.js.map": "/static/js/main.d804467d.chunk.js.map",
+    "main.js": "/static/js/main.8b6501a4.chunk.js",
+    "main.js.map": "/static/js/main.8b6501a4.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.11238b65.js",
     "runtime-main.js.map": "/static/js/runtime-main.11238b65.js.map",
     "static/js/2.5ec3120b.chunk.js": "/static/js/2.5ec3120b.chunk.js",
     "static/js/2.5ec3120b.chunk.js.map": "/static/js/2.5ec3120b.chunk.js.map",
     "index.html": "/index.html",
-    "precache-manifest.d2da04fdf47e7c932c6489b4bfee1dc8.js": "/precache-manifest.d2da04fdf47e7c932c6489b4bfee1dc8.js",
+    "precache-manifest.9d4fe041309df0187d2d716dbda10309.js": "/precache-manifest.9d4fe041309df0187d2d716dbda10309.js",
     "service-worker.js": "/service-worker.js",
     "static/css/main.ca41584b.chunk.css.map": "/static/css/main.ca41584b.chunk.css.map",
     "static/media/isometricks_logo.svg": "/static/media/isometricks_logo.97a25612.svg"
