@@ -31,7 +31,7 @@ function GridSize({ setGridDimensionsInTriangles }) {
   }
 
   return (
-    <div className="grid-size-wrapper">
+    <>
       <button
         type="button"
         className={`grid-size toolbar-btn ${onEdit && 'active'}`}
@@ -50,56 +50,58 @@ function GridSize({ setGridDimensionsInTriangles }) {
         </svg>
       </button>
       {onEdit && (
-        <div className="grid-size-dropdown">
-          <p>
-            Select a size for a new <strong>empty</strong> grid:
-          </p>
-          <div className="radio-component">
-            <input
-              id="mobile-size"
-              type="radio"
-              name="size"
-              onClick={() => setSelectedDimensions({
-                width: 15,
-                height: 33
-              })}
-            />
-            <label htmlFor="mobile-size">
-              for mobile phone (15 x 33)
-            </label>
+        <div className="grid-size-wrapper">
+          <div className="grid-size-dropdown">
+            <p>
+              Select a size for a new <strong>empty</strong> grid:
+            </p>
+            <div className="radio-component">
+              <input
+                id="mobile-size"
+                type="radio"
+                name="size"
+                onClick={() => setSelectedDimensions({
+                  width: 15,
+                  height: 33
+                })}
+              />
+              <label htmlFor="mobile-size">
+                for mobile phone (15 x 33)
+              </label>
+            </div>
+            <div className="radio-component">
+              <input
+                id="desktop-size"
+                type="radio"
+                name="size"
+                onClick={() => setSelectedDimensions({
+                  width: 45,
+                  height: 35
+                })}
+              />
+              <label htmlFor="desktop-size">
+                for desktop (45 x 35)
+              </label>
+            </div>
+            <button
+              type="button"
+              className="apply-grid-size dialog-btn"
+              disabled={selectedDimensions === null}
+              onClick={() => applySelection()}
+            >
+              Apply
+            </button>
+            <button
+              type="button"
+              className="close-grid-size dialog-btn"
+              onClick={() => closeDialog()}
+            >
+              Close
+            </button>
           </div>
-          <div className="radio-component">
-            <input
-              id="desktop-size"
-              type="radio"
-              name="size"
-              onClick={() => setSelectedDimensions({
-                width: 45,
-                height: 35
-              })}
-            />
-            <label htmlFor="desktop-size">
-              for desktop (45 x 35)
-            </label>
-          </div>
-          <button
-            type="button"
-            className="apply-grid-size dialog-btn"
-            disabled={selectedDimensions === null}
-            onClick={() => applySelection()}
-          >
-            Apply
-          </button>
-          <button
-            type="button"
-            className="close-grid-size dialog-btn"
-            onClick={() => closeDialog()}
-          >
-            Close
-          </button>
         </div>
       )}
-    </div>
+    </>
   );
 }
 
