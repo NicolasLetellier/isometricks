@@ -12,13 +12,15 @@ import './Editor.css';
 // indicated in triangles
 const START_GRID_DIMENSIONS = {
   width: 15,
-  height: 33
+  height: 35
 };
 
 
 function Editor() {
   const [gridDimensionsInTriangles, setGridDimensionsInTriangles] = useState(START_GRID_DIMENSIONS);
   const [activeFace, setActiveFace] = useState('left');
+  // onDialog possible values: null, 'grid size', 'color'
+  const [onDialog, setOnDialog] = useState(null);
   // history array of polygon stacks
   // polygon stack: array of polygon objects to be draw
   const [stacksHistory, setStacksHistory] = useState([[]]);
@@ -98,7 +100,9 @@ function Editor() {
   }
 
   function triangleClickHandler(triangleMapCoord, triangleMapData) {
-    if (activeFace === null) { // activeFace set to null: inactivate any click event
+    // activeFace set to null: inactivate any click event
+    // onDialog not null: inactivate any click event
+    if (activeFace === null || onDialog !== null) {
       return;
     }
 
@@ -139,6 +143,8 @@ function Editor() {
       <Toolbar
         activeFace={activeFace}
         setActiveFace={setActiveFace}
+        onDialog={onDialog}
+        setOnDialog={setOnDialog}
         backwardInHistory={backwardInHistoryProp()}
         forwardInHistory={forwardInHistoryProp()}
         setGridDimensionsInTriangles={setGridDimensionsInTriangles}

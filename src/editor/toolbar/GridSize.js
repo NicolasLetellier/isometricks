@@ -3,8 +3,11 @@ import React, { useState } from 'react';
 
 import './GridSize.css';
 
-function GridSize({ setGridDimensionsInTriangles }) {
-  const [onEdit, setOnEdit] = useState(false);
+function GridSize({
+  onDialog,
+  setOnDialog,
+  setGridDimensionsInTriangles
+}) {
   const [selectedDimensions, setSelectedDimensions] = useState(null);
 
   function applySelection() {
@@ -12,20 +15,20 @@ function GridSize({ setGridDimensionsInTriangles }) {
       setGridDimensionsInTriangles(selectedDimensions);
       setSelectedDimensions(null);
     }
-    setOnEdit(false);
+    setOnDialog(null);
   }
 
   function closeDialog() {
     if (selectedDimensions !== null) {
       setSelectedDimensions(null);
     }
-    setOnEdit(false);
+    setOnDialog(null);
   }
 
   function toogleDialog() {
-    if (onEdit === false) {
-      setOnEdit(true);
-    } else {
+    if (onDialog === null) {
+      setOnDialog('grid size');
+    } else if (onDialog === 'grid size') {
       closeDialog();
     }
   }
@@ -34,7 +37,8 @@ function GridSize({ setGridDimensionsInTriangles }) {
     <>
       <button
         type="button"
-        className={`grid-size toolbar-btn ${onEdit && 'active'}`}
+        disabled={onDialog !== null && onDialog !== 'grid size'} // another dialog is opened
+        className={`grid-size toolbar-btn ${onDialog === 'grid size' && 'active'}`}
         onClick={() => toogleDialog()}
       >
         <svg
@@ -49,7 +53,7 @@ function GridSize({ setGridDimensionsInTriangles }) {
             d="m 0,45.75 c 0,1.104 0.896,2 2,2 h 4 c 1.104,0 2,-0.896 2,-2 0,-1.104 -0.896,-2 -2,-2 v -28 c 1.104,0 2,-0.896 2,-2 0,-1.104 -0.896,-2 -2,-2 H 2 c -1.104,0 -2,0.896 -2,2 0,1.104 0.896,2 2,2 v 28 c -1.104,0 -2,0.896 -2,2 z" />
         </svg>
       </button>
-      {onEdit && (
+      {onDialog === 'grid size' && (
         <div className="grid-size-wrapper">
           <div className="grid-size-dropdown">
             <p>
@@ -62,11 +66,11 @@ function GridSize({ setGridDimensionsInTriangles }) {
                 name="size"
                 onClick={() => setSelectedDimensions({
                   width: 15,
-                  height: 33
+                  height: 35
                 })}
               />
               <label htmlFor="mobile-size">
-                for mobile phone (15 x 33)
+                for mobile phone (15 x 35)
               </label>
             </div>
             <div className="radio-component">

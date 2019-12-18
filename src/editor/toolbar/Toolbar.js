@@ -7,6 +7,8 @@ import './Toolbar.css';
 function Toolbar({
   activeFace,
   setActiveFace,
+  onDialog,
+  setOnDialog,
   backwardInHistory,
   forwardInHistory,
   setGridDimensionsInTriangles
@@ -15,6 +17,8 @@ function Toolbar({
     <div className="Toolbar">
       <div className="left-buttons">
         <GridSize
+          onDialog={onDialog}
+          setOnDialog={setOnDialog}
           setGridDimensionsInTriangles={setGridDimensionsInTriangles}
         />
         {/* <button
@@ -79,6 +83,7 @@ function Toolbar({
       <div className="center-buttons">
         <button
           type="button"
+          disabled={onDialog !== null}
           className={`left toolbar-btn ${activeFace === 'left' && 'active'}`}
           onClick={() => setActiveFace('left')}
         >
@@ -93,6 +98,7 @@ function Toolbar({
         </button>
         <button
           type="button"
+          disabled={onDialog !== null}
           className={`top toolbar-btn ${activeFace === 'top' && 'active'}`}
           onClick={() => setActiveFace('top')}
         >
@@ -107,6 +113,7 @@ function Toolbar({
         </button>
         <button
           type="button"
+          disabled={onDialog !== null}
           className={`right toolbar-btn ${activeFace === 'right' && 'active'}`}
           onClick={() => setActiveFace('right')}
         >
@@ -124,7 +131,7 @@ function Toolbar({
         <button
           type="button"
           className="backward toolbar-btn"
-          disabled={backwardInHistory === null}
+          disabled={backwardInHistory === null || onDialog !== null}
           onClick={backwardInHistory}
         >
           <svg
@@ -138,7 +145,7 @@ function Toolbar({
         <button
           type="button"
           className="forward toolbar-btn"
-          disabled={forwardInHistory === null}
+          disabled={forwardInHistory === null || onDialog !== null}
           onClick={forwardInHistory}
         >
           <svg
