@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { trianglesMapBuilder } from './gridUtils';
 import { calculateFacePoints } from './eventsUtils';
@@ -26,6 +26,12 @@ function Editor() {
   const [stacksHistory, setStacksHistory] = useState([[]]);
   // historyNavIndex === null : not currently in history navigation
   const [historyNavIndex, setHistoryNavIndex] = useState(null);
+
+  // to reset all drawing when new grid size is selected
+  useEffect(() => {
+    setStacksHistory([[]]);
+    setHistoryNavIndex(null);
+  }, [gridDimensionsInTriangles]);
 
   // length shouldn't be less than 1
   const historyLastIndex = stacksHistory.length - 1;
@@ -127,7 +133,7 @@ function Editor() {
     }
 
     const polygon = {
-      type: 'face', // other will be 'shape' when implemented
+      type: 'face', // other will be 'shape' when implemented?
       points,
       fill
       // stroke and stroke-width: configurables too!
