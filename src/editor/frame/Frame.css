@@ -1,8 +1,16 @@
 
 .Frame {
-  height: calc(100vh - 106px);
+  height: calc(100vh - 108px);
   box-sizing: border-box;
   border: 8px solid #dddddd;
+}
+
+/* below 371px (7 buttons x 53px), the toolbar is wrapping to a second line of buttons
+making the height of toolbar of 92px */
+@media screen and (max-width: 370px) {
+  .Frame {
+    height: calc(100vh - 154px);
+  }
 }
 
 .Frame-svg {

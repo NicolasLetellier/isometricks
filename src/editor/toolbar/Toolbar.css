@@ -2,12 +2,22 @@
 .Toolbar {
   font-size: 1em;
   box-sizing: border-box;
-  height: 44px;
+  height: 46px;
   background-color: #555555;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
 }
+
+/* below 371px (7 buttons x 53px), the toolbar is wrapping to a second line of buttons */
+/* minimum screen width supported is 212px without having to manage
+  a third line of buttons (design of toolbar is breaking below 212px for 7 buttons in 2 groups: 4 + 3) */
+@media screen and (max-width: 370px) {
+  .Toolbar {
+    height: 92px;
+  }
+}
+
 
 .Toolbar button:focus {
   outline: none;
@@ -21,20 +31,23 @@
   cursor: not-allowed;
 }
 
-.Toolbar .left-buttons, .Toolbar .center-buttons, .Toolbar .right-buttons {
+.Toolbar .left-buttons, .Toolbar .right-buttons {
   flex: 0 0 auto;
 }
 
 .Toolbar .toolbar-btn {
-  border: none;
   padding: 7px;
   margin: 0;
   box-sizing: border-box;
-  height: 44px;
-  width: 51px; /* to harmonize width with button.top */
+  height: 46px;
+  width: 53px; /* to harmonize width with button.top */
   background-color: transparent;
-  border-left: 1px solid #555555;
-  border-right: 1px solid #555555;
+  border: 1px solid #555555;
+}
+
+.Toolbar .backward, .Toolbar .forward {
+  padding: 9px;
+  vertical-align: top; /* to fix misalignement after padding re-calculation */
 }
 
 /* used in dialog window opening when size or color selection */
@@ -53,13 +66,9 @@
 
 .Toolbar .top {
   /* button width for top face is limiting/defining svg size, when
-  for left and right it's the button height. Here width calculated
-  for same face size when height is 44px */
-  width: 51px;
-}
-
-.Toolbar .backward, .Toolbar .forward {
-  padding: 9px;
+  for left and right it's the button height. Here width 53 px is calculated
+  for same face size when height is 46px (borders counted) */
+  width: 53px;
 }
 
 .Toolbar .toolbar-btn:hover polygon, .Toolbar .toolbar-btn:hover path {
@@ -69,8 +78,7 @@
 
 .Toolbar .toolbar-btn.active {
   background-color: #323232;
-  border-left: 1px solid #2b2b2b;
-  border-right: 1px solid #2b2b2b;
+  border: 1px solid #2b2b2b;
 }
 
 .Toolbar .toolbar-btn.active polygon, .Toolbar .toolbar-btn.active path {
@@ -95,3 +103,8 @@
   wherever stroke are part of the design */
   stroke-width: 0;
 }
+
+/* .placeholder-for-future-button {
+  display: inline-block;
+  width: 53px;
+} */
