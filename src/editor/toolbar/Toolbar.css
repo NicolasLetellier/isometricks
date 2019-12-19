@@ -64,6 +64,7 @@
 
 .Toolbar .toolbar-btn:hover polygon, .Toolbar .toolbar-btn:hover path {
   fill: #ffffff;
+  stroke: #ffffff;
 }
 
 .Toolbar .toolbar-btn.active {
@@ -74,10 +75,12 @@
 
 .Toolbar .toolbar-btn.active polygon, .Toolbar .toolbar-btn.active path {
   fill: #ffffff;
+  stroke: #ffffff;
 }
 
 .Toolbar .toolbar-btn:disabled polygon, .Toolbar .toolbar-btn:disabled path {
   fill: #7c7c7c;
+  stroke: #7c7c7c;
 }
 
 .Toolbar svg, .Toolbar img {
@@ -87,5 +90,8 @@
 
 .Toolbar polygon, .Toolbar path {
   fill: #dadada;
-  stroke: none;
+  stroke: #dadada;
+  /* can be overwritten locally in svg inline styles,
+  wherever stroke are part of the design */
+  stroke-width: 0;
 }

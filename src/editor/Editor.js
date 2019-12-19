@@ -40,6 +40,9 @@ function Editor() {
     return (historyNavIndex === null) ? historyLastIndex : historyNavIndex;
   }
 
+  // TO DO : integrate in trianglesMapBuilder the face coordinates for each activeFace
+  // (3 faces posible for each triangle), to avoid computation of calculateFacePoints
+  // on each event
   const trianglesMap = trianglesMapBuilder(gridDimensionsInTriangles.width, gridDimensionsInTriangles.height);
 
   function backwardInHistory() {
@@ -144,6 +147,10 @@ function Editor() {
     addPolygonIntoStacksHistory(polygon);
   }
 
+  function buildAndSaveFile() {
+    console.log('save this file!');
+  }
+
   return (
     <div className="Editor">
       <Toolbar
@@ -154,6 +161,7 @@ function Editor() {
         backwardInHistory={backwardInHistoryProp()}
         forwardInHistory={forwardInHistoryProp()}
         setGridDimensionsInTriangles={setGridDimensionsInTriangles}
+        buildAndSaveFile={buildAndSaveFile}
       />
       <Frame
         gridDimensionsInTriangles={gridDimensionsInTriangles}

@@ -11,7 +11,8 @@ function Toolbar({
   setOnDialog,
   backwardInHistory,
   forwardInHistory,
-  setGridDimensionsInTriangles
+  setGridDimensionsInTriangles,
+  buildAndSaveFile
 }) {
   return (
     <div className="Toolbar">
@@ -21,6 +22,28 @@ function Toolbar({
           setOnDialog={setOnDialog}
           setGridDimensionsInTriangles={setGridDimensionsInTriangles}
         />
+        <button
+          type="button"
+          disabled={onDialog !== null}
+          className="download toolbar-btn"
+          onClick={() => buildAndSaveFile()}
+        >
+          <svg
+            viewBox="0 0 30 36"
+          >
+            <path
+              d="m 28,36 c 1.104,0 2,-0.896 2,-2 V 10 C 30,9.47 29.789,8.961 29.414,8.586 l -8,-8 C 21.039,0.211 20.53,0 20,0 H 2 C 0.896,0 0,0.896 0,2 v 32 c 0,1.104 0.896,2 2,2 z M 24.171,9 H 20 V 4.829 Z M 4,4 h 12 v 7 c 0,1.104 0.896,2 2,2 h 8 V 32 H 4 Z"
+            />
+            <path
+              d="m 15,27.641506 -5.033641,-3.25 m 5.033641,3.25 5.033641,-3.25 M 15,16.95101 v 10.690496"
+              style={{
+                strokeWidth: '3.25',
+                strokeLinecap: 'round',
+                strokeLinejoin: 'round',
+              }}
+            />
+          </svg>
+        </button>
         {/* <button
           type="button"
           className="palette toolbar-btn"
@@ -41,12 +64,7 @@ function Toolbar({
               style={{
                 opacity: '1',
                 fill: '#ffffff',
-                fillOpacity: '1',
-                stroke: 'none',
-                strokeWidth: '4.3687129',
-                strokeMiterlimit: '4',
-                strokeDasharray: 'none',
-                strokeOpacity: '1'
+                fillOpacity: '1'
               }}
             />
             <path
@@ -55,12 +73,7 @@ function Toolbar({
               style={{
                 opacity: '1',
                 fill: '#ffffff',
-                fillOpacity: '1',
-                stroke: 'none',
-                strokeWidth: '4.3687129',
-                strokeMiterlimit: '4',
-                strokeDasharray: 'none',
-                strokeOpacity: '1'
+                fillOpacity: '1'
               }}
             />
             <path
@@ -69,12 +82,7 @@ function Toolbar({
               style={{
                 opacity: '1',
                 fill: '#ffffff',
-                fillOpacity: '1',
-                stroke: 'none',
-                strokeWidth: '4.3687129',
-                strokeMiterlimit: '4',
-                strokeDasharray: 'none',
-                strokeOpacity: '1'
+                fillOpacity: '1'
               }}
             />
           </svg>
