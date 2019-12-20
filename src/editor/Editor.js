@@ -1,8 +1,9 @@
 
 import React, { useState, useEffect } from 'react';
 
-import { trianglesMapBuilder } from './gridUtils';
+import { trianglesMapBuilder, calculateGridDimensions } from './gridUtils';
 import { calculateFacePoints } from './eventsUtils';
+import { build } from './downloadUtils';
 
 import Toolbar from './toolbar/Toolbar';
 import Frame from './frame/Frame';
@@ -44,6 +45,8 @@ function Editor() {
   // (3 faces posible for each triangle), to avoid computation of calculateFacePoints
   // on each event
   const trianglesMap = trianglesMapBuilder(gridDimensionsInTriangles.width, gridDimensionsInTriangles.height);
+
+  const gridDimensions = calculateGridDimensions(gridDimensionsInTriangles.width, gridDimensionsInTriangles.height);
 
   function backwardInHistory() {
     if (historyNavIndex === null) {
@@ -148,7 +151,9 @@ function Editor() {
   }
 
   function buildAndSaveFile() {
-    console.log('save this file!');
+    const displayedPolygonStack = stacksHistory[currentHistoryIndex()];
+    const markup = build(displayedPolygonStack, gridDimensions);
+    console.log(markup);
   }
 
   return (
