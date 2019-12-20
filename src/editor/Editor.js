@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 
 import { trianglesMapBuilder, calculateGridDimensions } from './gridUtils';
 import { calculateFacePoints } from './eventsUtils';
-import { build } from './downloadUtils';
+import { buildAndSave } from './downloadUtils';
 
 import Toolbar from './toolbar/Toolbar';
 import Frame from './frame/Frame';
@@ -152,8 +152,7 @@ function Editor() {
 
   function buildAndSaveFile() {
     const displayedPolygonStack = stacksHistory[currentHistoryIndex()];
-    const markup = build(displayedPolygonStack, gridDimensions);
-    console.log(markup);
+    buildAndSave(displayedPolygonStack, gridDimensions);
   }
 
   return (

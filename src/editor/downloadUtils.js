@@ -1,5 +1,10 @@
 
-function build(polygonStack, gridDimensions) {
+import { saveAs } from 'file-saver';
+
+// factor to multiply grid dimensions to get sensible pixel sizes
+const IMAGE_SIZE_FACTOR = 30;
+
+function buildAndSave(polygonStack, gridDimensions) {
   function polygons(stack) {
     let polygonsMarkup = '';
 
@@ -15,15 +20,13 @@ function build(polygonStack, gridDimensions) {
   }
 
   const svgMarkup = `
-<svg class="isometricks-svg" viewBox="0 0 ${gridDimensions.width} ${gridDimensions.height}">${polygons(polygonStack)}
+<svg class="isometricks-svg" version="1.1" xmlns="http://www.w3.org/2000/svg" width="${gridDimensions.width * IMAGE_SIZE_FACTOR}px" height="${gridDimensions.height * IMAGE_SIZE_FACTOR}px" preserveAspectRatio="xMinYMin" viewBox="0 0 ${gridDimensions.width} ${gridDimensions.height}">${polygons(polygonStack)}
 </svg>
   `;
 
-  return svgMarkup;
+  const svgBlob = new Blob([svgMarkup], {type: "image/svg+xml"});
+
+  saveAs(svgBlob, 'isometricks.svg');
 }
 
-function save() {
-
-}
-
-export { build, save };
+export { buildAndSave };
