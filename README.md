@@ -3,11 +3,22 @@
 
 isometricks is an easy isometric editor, for the browser.
 
-It is currently under development, but feel already free to try it: https://isometricks.com.
+It is still under development, but feel free to try it: https://isometricks.com (and for more details about what kind of editor it is and how to use it, please see the info tab there).
 
-This project is open to collaboration, and any comment is welcomed! Please open an issue for any bug, or to request/propose a feature. Please also open an issue to discuss any change before pushing a PR (unless it's a very obvious correction), but I would really appreciate any contribution. Thanks!
+## Open source, and open to collaboration
 
-## under the hood
+This project is open to collaboration, and any comment is welcomed! Please open an issue for any bug, or to request/propose a feature.
+
+Please also open an issue to discuss any change before pushing a PR (unless it's a very obvious correction), but I would really appreciate any contribution. Thanks!
+
+This project is licensed under the GPL license.
+
+## Under the hood
+
+The frame of the editor is all compounded of SVG polygons, and works the following way: a transparent layer of equilateral triangles is placed in the foreground, and each triangle has a click listener. At the same time the user must have selected in the toolbar what face of the cube he wants to draw (left, upper or right face). A click on a transparent triangle will trigger, depending of the selected face, the drawing of the corresponding face in the drawing layer (each triangle can be half of the shape of three possible faces: a left, an upper or a right face).
+The transparent clickable layer is in the foreground, the drawing layer in the middleground, and finally the grey lines grid lays in the background.
+
+The project is implemented with React, which supports SVG elements. With React, we can implement event listeners and programmable rendering on these SVGs elements in a powerful way.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 You can use the different scripts it provides for local development (`npm start`), test (`npm test`) and build (`npm build`).
