@@ -15,10 +15,10 @@ This project is licensed under the GPL license.
 
 ## Under the hood
 
-The frame of the editor is all compounded of SVG polygons, and works the following way: a transparent layer of equilateral triangles is placed in the foreground, and each triangle has a click listener. At the same time the user must have selected in the toolbar what face of the cube he wants to draw (left, upper or right face). A click on a transparent triangle will trigger, depending of the selected face, the drawing of the corresponding face in the drawing layer (each triangle can be half of the shape of three possible faces: a left, an upper or a right face).
-The transparent clickable layer is in the foreground, the drawing layer in the middleground, and finally the grey lines grid lays in the background.
+The frame of the editor is all compounded of SVG polygons, and works the following way: a transparent layer of equilateral triangles is placed in the foreground, and each triangle has a click listener. The user must have selected in the toolbar what face of the cube he wants to draw (left, upper or right face). A click on a transparent triangle will trigger, depending of the selected face, the drawing of the corresponding face in the drawing layer (each triangle can be half of the shape of the three possible faces).
+The transparent clickable layer is in the foreground, the drawing layer in the middleground, and finally the grey lines grid is in the background.
 
-The project is implemented with React, which supports SVG elements. With React, we can implement event listeners and programmable rendering on these SVGs elements in a powerful way.
+The project is implemented with React, which supports SVG elements. With React, we can implement event listeners and programmable rendering on SVGs elements in a powerful way.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 You can use the different scripts it provides for local development (`npm start`), test (`npm test`) and build (`npm build`).
