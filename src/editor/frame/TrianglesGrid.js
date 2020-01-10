@@ -12,10 +12,10 @@ function TrianglesGrid({
   const trianglesPolygons = [];
   for (let x = 0; x < gridDimensionsInTriangles.width; x++) {
     for (let y = 0; y < gridDimensionsInTriangles.height; y++) {
-      const triangleMapData = trianglesMap[x][y];
+      const triangleData = trianglesMap[x][y];
 
-      const orientation = triangleMapData.orientation;
-      const triangleGridCoord = triangleMapData.coordinates;
+      const orientation = triangleData.orientation;
+      const triangleGridCoord = triangleData.coordinates;
       const topCoord = triangleGridCoord.topVertexCoord;
       const sideCoord = triangleGridCoord.sideVertexCoord;
       const bottomCoord = triangleGridCoord.bottomVertexCoord;
@@ -31,7 +31,7 @@ function TrianglesGrid({
           onClick={triangleClickHandler && (
             () => triangleClickHandler(
               {x, y},
-              triangleMapData
+              triangleData
             )
           )}
         />
@@ -39,7 +39,7 @@ function TrianglesGrid({
     }
   }
 
-  // check g element syntax
+  // TO DO: check g element syntax
   return (
     <g className="TrianglesGrid">
       {trianglesPolygons}

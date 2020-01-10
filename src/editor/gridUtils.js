@@ -1,7 +1,7 @@
 
 // WARNING: It is assumed that we will only use the hexagon
 // orientation that is really usefull for isometric drawings:
-// hexagons 'pointy topped'
+// hexagons 'pointy topped', for a grid with vertical lines
 // a LOT of calculations are extrapolated based on this assumption
 
 // Here we define this value (1) as a universal basis of the project.
@@ -57,13 +57,13 @@ function giveTriangleCoordinates(x, y, orientation) {
   }
 }
 
-function triangleBuilder(x, y) {
+function triangleData(x, y) {
   const orientation = giveTriangleOrientation(x, y);
-  let triangle = {
+  let data = {
     orientation,
     coordinates: giveTriangleCoordinates(x, y, orientation)
   };
-  return triangle;
+  return data;
 }
 
 function trianglesMapBuilder(gridWidthInTriangles, gridHeightInTriangles) {
@@ -72,7 +72,7 @@ function trianglesMapBuilder(gridWidthInTriangles, gridHeightInTriangles) {
   for (let x = 0; x < gridWidthInTriangles; x++) {
     map[x] = [];
     for (let y = 0; y < gridHeightInTriangles; y++) {
-      map[x][y] = triangleBuilder(x, y);
+      map[x][y] = triangleData(x, y);
     }
   }
   return map;

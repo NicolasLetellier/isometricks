@@ -9,18 +9,18 @@
 // to enable 'repeated faces' comparisons
 // BE CAREFULL, this rule won't apply to 'shape' polygons!!
 function calculateFacePoints(
-  triangleMapCoord,
-  triangleMapData,
+  triangleCoord,
+  triangleData,
   trianglesMap,
   activeFace
 ) {
-  const orientation = triangleMapData.orientation;
-  const eventTriangleCoord = triangleMapData.coordinates;
+  const orientation = triangleData.orientation;
+  const eventTriangleCoord = triangleData.coordinates;
 
   const points = [];
   if (activeFace === 'left' || activeFace === 'right') {
     if (orientation === activeFace) {
-      const upperTriangle = trianglesMap[triangleMapCoord.x][triangleMapCoord.y - 1];
+      const upperTriangle = trianglesMap[triangleCoord.x][triangleCoord.y - 1];
       if (upperTriangle === undefined) { // complementary triangle for this face is out of grid
         return;
       }
@@ -30,7 +30,7 @@ function calculateFacePoints(
       points.push(eventTriangleCoord.bottomVertexCoord);
       points.push(eventTriangleCoord.sideVertexCoord);
     } else {
-      const lowerTriangle = trianglesMap[triangleMapCoord.x][triangleMapCoord.y + 1];
+      const lowerTriangle = trianglesMap[triangleCoord.x][triangleCoord.y + 1];
       if (lowerTriangle === undefined) { // complementary triangle for this face is out of grid
         return;
       }
@@ -42,21 +42,21 @@ function calculateFacePoints(
     }
   } else if (activeFace === 'top') {
     if (orientation === 'left') {
-      const onRightRow = trianglesMap[triangleMapCoord.x + 1];
+      const onRightRow = trianglesMap[triangleCoord.x + 1];
       if (onRightRow === undefined) { // complementary triangle for this face is out of grid
         return;
       }
-      const onRightTriangleCoord = onRightRow[triangleMapCoord.y].coordinates;
+      const onRightTriangleCoord = onRightRow[triangleCoord.y].coordinates;
       points.push(eventTriangleCoord.topVertexCoord);
       points.push(onRightTriangleCoord.sideVertexCoord);
       points.push(eventTriangleCoord.bottomVertexCoord);
       points.push(eventTriangleCoord.sideVertexCoord);
     } else if (orientation === 'right') {
-      const onLeftRow = trianglesMap[triangleMapCoord.x - 1];
+      const onLeftRow = trianglesMap[triangleCoord.x - 1];
       if (onLeftRow === undefined) { // complementary triangle for this face is out of grid
         return;
       }
-      const onLeftTriangleCoord = onLeftRow[triangleMapCoord.y].coordinates;
+      const onLeftTriangleCoord = onLeftRow[triangleCoord.y].coordinates;
       points.push(eventTriangleCoord.topVertexCoord);
       points.push(eventTriangleCoord.sideVertexCoord);
       points.push(eventTriangleCoord.bottomVertexCoord);

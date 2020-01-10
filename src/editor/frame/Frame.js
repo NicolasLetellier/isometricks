@@ -14,10 +14,7 @@ function Frame({
   const gridDimensions = calculateGridDimensions(gridDimensionsInTriangles.width, gridDimensionsInTriangles.height);
 
   // WARNING! we must find a way to not re-render Grid when activeFace,
-  // colors or drawing history change...
-
-  // GOAL is to change the visible grid from triangles grid to points grid,
-  // but conserve these two layers for related events
+  // colors or drawing history change... but is it re-rendering? to be checked
 
   const triangleBackgroundPresentation = {
     stroke: 'silver',

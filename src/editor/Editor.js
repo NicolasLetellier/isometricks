@@ -83,7 +83,7 @@ function Editor() {
   // check if this face is exactly the same as an older one,
   // and remove it because it would be exactly covered by the new one.
   // (maybe disable this if in case of use of transparent colors for upper one??)
-  // BE CAREFULL, it won't work in comparing 'shape' coords!
+  // BE CAREFULL, it won't work in comparing 'shape' coords! (if ever implemented)
   // if exactly repeated polygons (same colors, etc...) it will give the impression
   // when using history nav that nothing was done on this action... but necesary if
   // some parts of other faces are between the two equals polygons (stack order
@@ -111,7 +111,7 @@ function Editor() {
     setHistoryNavIndex(null);
   }
 
-  function triangleClickHandler(triangleMapCoord, triangleMapData) {
+  function triangleClickHandler(triangleCoord, triangleData) {
     // activeFace set to null: inactivate any click event
     // onDialog not null: inactivate any click event
     if (activeFace === null || onDialog !== null) {
@@ -119,8 +119,8 @@ function Editor() {
     }
 
     const points = calculateFacePoints(
-      triangleMapCoord,
-      triangleMapData,
+      triangleCoord,
+      triangleData,
       trianglesMap,
       activeFace
     );
@@ -139,12 +139,12 @@ function Editor() {
     }
 
     const polygon = {
-      type: 'face', // other will be 'shape' when implemented?
+      type: 'face', // other will be 'shape' if ever implemented?
       points,
       fill
-      // stroke and stroke-width: configurables too!
-      // orientation: needed? > probably for changing all
-      // similar faces color at once
+      // stroke and stroke-width: configurables too?
+      // activeFace: needed? > probably, to tag the polygon
+      // for the feature of changing color of all similar faces at once
     };
 
     addPolygonIntoStacksHistory(polygon);
