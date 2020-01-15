@@ -30,13 +30,10 @@ function Frame({
   const drawingPolygons = [];
 
   polygonStack.forEach((polygon, index) => {
-    const points = polygon.points.reduce((acc, value) => {
-      return (acc + `${value[0]},${value[1]} `);
-    }, '');
     drawingPolygons.push((
       <polygon
         key={index}
-        points={points}
+        points={polygon.points}
         stroke="none"
         fill={polygon.fill}
       />

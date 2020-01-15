@@ -14,25 +14,16 @@ function TrianglesGrid({
     for (let y = 0; y < gridDimensionsInTriangles.height; y++) {
       const triangleData = trianglesMap[x][y];
 
-      const orientation = triangleData.orientation;
-      const triangleGridCoord = triangleData.coordinates;
-      const topCoord = triangleGridCoord.topVertexCoord;
-      const sideCoord = triangleGridCoord.sideVertexCoord;
-      const bottomCoord = triangleGridCoord.bottomVertexCoord;
-
       trianglesPolygons.push((
         <polygon
           key={`${x},${y}`}
-          points={`${topCoord[0]},${topCoord[1]} ${sideCoord[0]},${sideCoord[1]} ${bottomCoord[0]},${bottomCoord[1]}`}
-          data-orientation={orientation}
+          points={triangleData.triangleCoord}
+          data-orientation={triangleData.orientation}
           stroke={presentation.stroke}
           strokeWidth={presentation.strokeWidth}
           fill={presentation.fill}
           onClick={triangleClickHandler && (
-            () => triangleClickHandler(
-              {x, y},
-              triangleData
-            )
+            () => triangleClickHandler(triangleData)
           )}
         />
       ));

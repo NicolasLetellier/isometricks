@@ -9,11 +9,8 @@ function buildAndSave(polygonStack, gridDimensions) {
     let polygonsMarkup = '';
 
     stack.forEach((polygon) => {
-      const points = polygon.points.reduce((acc, value) => {
-        return (acc + `${value[0]},${value[1]} `);
-      }, '');
       polygonsMarkup += `
-  <polygon points="${points}" stroke="none" fill="${polygon.fill}" />`;
+  <polygon points="${polygon.points}" stroke="none" fill="${polygon.fill}" />`;
     });
 
     return polygonsMarkup;

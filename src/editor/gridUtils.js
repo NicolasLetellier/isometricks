@@ -12,6 +12,8 @@ function giveTriangleHeight(triangleEdgeLength) {
   return Math.sqrt(3) / 2 * triangleEdgeLength;
 }
 
+const TRIANGLE_HEIGHT = giveTriangleHeight(TRIANGLE_EDGE_LENGTH);
+
 // Give orientation of triangle, pointing to left or right
 function giveTriangleOrientation(x, y) {
   // This rule works because we decided to start grid
@@ -25,45 +27,76 @@ function giveTriangleOrientation(x, y) {
 // x (horizontal) increase to the right
 // y (vertical) increase to the bottom
 
-// Coordinates are given ordered, for any given triangle,
+// Triangle coordinates are given ordered, for any given triangle,
 // by increasing y:
 // first, top vertex coordinates
 // second, coordinates of the sided vertex (pointing to left or right)
 // third, bottom vertex coordinates
-function giveTriangleCoordinates(x, y, orientation) {
+// and delivered directly as SVG points syntax.
+// related faces coordinates are also delivered directly as SVG points syntax.
+function giveCoordinates(x, y, orientation) {
   // for each triangle, we need to calculate:
+
   // two values of x: x1 and x2
+  const x1 = x * TRIANGLE_HEIGHT;
+  const x2 = x1 + TRIANGLE_HEIGHT;
+
   // and three values of y: y1, y2 and y3
-
-  const x1 = giveTriangleHeight(x * TRIANGLE_EDGE_LENGTH);
-  const x2 = giveTriangleHeight((x + 1) * TRIANGLE_EDGE_LENGTH);
   const y1 = y * (TRIANGLE_EDGE_LENGTH / 2);
-  const y2 = (y * (TRIANGLE_EDGE_LENGTH / 2)) + (TRIANGLE_EDGE_LENGTH / 2);
-  const y3 = (y * (TRIANGLE_EDGE_LENGTH / 2)) + TRIANGLE_EDGE_LENGTH;
+  const y2 = y1 + (TRIANGLE_EDGE_LENGTH / 2);
+  const y3 = y1 + TRIANGLE_EDGE_LENGTH;
 
+  // for the three related faces, we need to calculate:
+
+  // two other y values
+  const yUp = y1 - (TRIANGLE_EDGE_LENGTH / 2);
+  const yDown = y3 + (TRIANGLE_EDGE_LENGTH / 2);
+
+  // and another x value (this last x depending on triangle orientation)
+  let xSide;
   if (orientation === 'left') {
-    return {
-      topVertexCoord: [x2, y1],
-      sideVertexCoord: [x1, y2],
-      bottomVertexCoord: [x2, y3]
-    };
+    xSide = x2 + TRIANGLE_HEIGHT;
   }
   if (orientation === 'right') {
-    return {
-      topVertexCoord: [x1, y1],
-      sideVertexCoord: [x2, y2],
-      bottomVertexCoord: [x1, y3]
-    };
+    xSide = x1 - TRIANGLE_HEIGHT;
   }
+
+  // for every activeFace, points coords MUST be ordened in only one way (TO DO: check that!)
+  // to enable 'repeated faces' comparisons with actualiseStack
+
+  let triangleCoord, topFaceCoord, leftFaceCoord, rightFaceCoord;
+  if (orientation === 'left') {
+    triangleCoord = `${x2},${y1} ${x1},${y2} ${x2},${y3}`;
+    topFaceCoord = `${x2},${y1} ${x1},${y2} ${x2},${y3} ${xSide},${y2}`;
+    leftFaceCoord = `${x2},${y1} ${x1},${yUp} ${x1},${y2} ${x2},${y3}`;
+    rightFaceCoord = `${x2},${y1} ${x1},${y2} ${x1},${yDown} ${x2},${y3}`;
+  }
+  if (orientation === 'right') {
+    triangleCoord = `${x1},${y1} ${x2},${y2} ${x1},${y3}`;
+    topFaceCoord = `${x1},${y1} ${x2},${y2} ${x1},${y3} ${xSide},${y2}`;
+    rightFaceCoord = `${x1},${y1} ${x2},${yUp} ${x2},${y2} ${x1},${y3}`;
+    leftFaceCoord = `${x1},${y1} ${x2},${y2} ${x2},${yDown} ${x1},${y3}`;
+  }
+
+  return { triangleCoord, topFaceCoord, leftFaceCoord, rightFaceCoord };
 }
 
 function triangleData(x, y) {
   const orientation = giveTriangleOrientation(x, y);
-  let data = {
+  const {
+    triangleCoord,
+    topFaceCoord,
+    leftFaceCoord,
+    rightFaceCoord
+  } = giveCoordinates(x, y, orientation);
+
+ return {
     orientation,
-    coordinates: giveTriangleCoordinates(x, y, orientation)
+    triangleCoord,
+    topFaceCoord,
+    leftFaceCoord,
+    rightFaceCoord
   };
-  return data;
 }
 
 function trianglesMapBuilder(gridWidthInTriangles, gridHeightInTriangles) {

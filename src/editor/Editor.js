@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from 'react';
 
 import { trianglesMapBuilder, calculateGridDimensions } from './gridUtils';
-import { calculateFacePoints } from './eventsUtils';
 import { buildAndSave } from './downloadUtils';
 
 import Toolbar from './toolbar/Toolbar';
@@ -12,13 +11,14 @@ import './Editor.css';
 // default grid size on start,
 // indicated in triangles
 const START_GRID_DIMENSIONS = {
-  width: 15,
+  width: 16,
   height: 35
 };
 
 
 function Editor() {
   const [gridDimensionsInTriangles, setGridDimensionsInTriangles] = useState(START_GRID_DIMENSIONS);
+  // activeFace possible values: 'left', 'top', 'right', null (invalidate events)
   const [activeFace, setActiveFace] = useState('left');
   // onDialog possible values: null, 'grid size', 'color'
   const [onDialog, setOnDialog] = useState(null);
@@ -90,10 +90,9 @@ function Editor() {
   // has to be corrected)
   function actualiseStack(previousStack, polygon) {
     let previousStackCopy = [...previousStack];
-    const polygonCoordsString = polygon.points.flat().toString();
     for (let i = 0; i < previousStackCopy.length; i++) {
-      const previousPolygonCoordsString = previousStackCopy[i].points.flat().toString();
-      if (previousPolygonCoordsString === polygonCoordsString) {
+      const previousPolygonPoints = previousStackCopy[i].points;
+      if (previousPolygonPoints === polygon.points) {
         previousStackCopy.splice(i, 1);
         break; // no possible other repeated faces as it's always checked
       }
@@ -111,31 +110,35 @@ function Editor() {
     setHistoryNavIndex(null);
   }
 
-  function triangleClickHandler(triangleCoord, triangleData) {
+  function triangleClickHandler(triangleData) {
     // activeFace set to null: inactivate any click event
     // onDialog not null: inactivate any click event
     if (activeFace === null || onDialog !== null) {
       return;
     }
 
-    const points = calculateFacePoints(
-      triangleCoord,
-      triangleData,
-      trianglesMap,
-      activeFace
-    );
+    // const points = calculateFacePoints(
+    //   triangleCoord,
+    //   triangleData,
+    //   trianglesMap,
+    //   activeFace
+    // );
+
+    let points;
+    let fill; // any css color syntax accepted
+    if (activeFace === 'left') {
+      points = triangleData.leftFaceCoord;
+      fill = 'royalblue';
+    } else if (activeFace === 'top') {
+      points = triangleData.topFaceCoord;
+      fill = 'lightskyblue';
+    } else if (activeFace === 'right') {
+      points = triangleData.rightFaceCoord;
+      fill = 'mediumblue';
+    }
 
     if (points === undefined) { // invalid event on grid edge
       return;
-    }
-
-    let fill; // any css color syntax accepted
-    if (activeFace === 'top') {
-      fill = 'lightskyblue';
-    } else if (activeFace === 'right') {
-      fill = 'mediumblue';
-    } else if (activeFace === 'left') {
-      fill = 'royalblue';
     }
 
     const polygon = {
