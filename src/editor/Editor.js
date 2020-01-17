@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 
-import { trianglesMapBuilder, calculateGridDimensions } from './gridUtils';
+import { trianglesMapBuilder } from './gridUtils';
 import { buildAndSave } from './downloadUtils';
 
 import Toolbar from './toolbar/Toolbar';
@@ -41,12 +41,8 @@ function Editor() {
     return (historyNavIndex === null) ? historyLastIndex : historyNavIndex;
   }
 
-  // TO DO : integrate in trianglesMapBuilder the face coordinates for each activeFace
-  // (3 faces posible for each triangle), to avoid computation of calculateFacePoints
-  // on each event
+  // TO DO : move down the component tree
   const trianglesMap = trianglesMapBuilder(gridDimensionsInTriangles.width, gridDimensionsInTriangles.height);
-
-  const gridDimensions = calculateGridDimensions(gridDimensionsInTriangles.width, gridDimensionsInTriangles.height);
 
   function backwardInHistory() {
     if (historyNavIndex === null) {
@@ -137,9 +133,9 @@ function Editor() {
       fill = 'mediumblue';
     }
 
-    if (points === undefined) { // invalid event on grid edge
-      return;
-    }
+    // if (points === undefined) { // invalid event on grid edge
+    //   return;
+    // }
 
     const polygon = {
       type: 'face', // other will be 'shape' if ever implemented?
@@ -155,7 +151,7 @@ function Editor() {
 
   function buildAndSaveFile() {
     const displayedPolygonStack = stacksHistory[currentHistoryIndex()];
-    buildAndSave(displayedPolygonStack, gridDimensions);
+    buildAndSave(displayedPolygonStack, gridDimensionsInTriangles);
   }
 
   return (

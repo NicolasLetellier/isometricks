@@ -17,15 +17,18 @@ const TRIANGLE_HEIGHT = giveTriangleHeight(TRIANGLE_EDGE_LENGTH);
 // Give orientation of triangle, pointing to left or right
 function giveTriangleOrientation(x, y) {
   // This rule works because we decided to start grid
-  // at 0,0 with a left triangle.
+  // at 0,0 with a right triangle (style decision in conjunction
+  // with the viewbox limitation for fully drawable frame).
   // Using % as we won't have negative coordinates.
-  return (x % 2 === y % 2) ? 'left' : 'right';
+  return (x % 2 === y % 2) ? 'right' : 'left';
 }
 
 // Coordinate system:
 // starts at 0, 0 (top left)
 // x (horizontal) increase to the right
 // y (vertical) increase to the bottom
+
+// (Be aware: frame viewbox is limiting visible height, grid is higher)
 
 // Triangle coordinates are given ordered, for any given triangle,
 // by increasing y:
@@ -34,6 +37,8 @@ function giveTriangleOrientation(x, y) {
 // third, bottom vertex coordinates
 // and delivered directly as SVG points syntax.
 // related faces coordinates are also delivered directly as SVG points syntax.
+// related faces coords can get negative values, or values upper than the grid
+// dimensions maximums, and that's ok as we limit viewable edges with viewbox.
 function giveCoordinates(x, y, orientation) {
   // for each triangle, we need to calculate:
 
@@ -120,4 +125,4 @@ function calculateGridDimensions(gridWidthInTriangles, gridHeightInTriangles) {
   };
 }
 
-export { trianglesMapBuilder, calculateGridDimensions };
+export { trianglesMapBuilder, calculateGridDimensions, TRIANGLE_EDGE_LENGTH };

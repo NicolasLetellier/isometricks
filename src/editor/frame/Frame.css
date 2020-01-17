@@ -3,6 +3,7 @@
   height: calc(100vh - 108px);
   box-sizing: border-box;
   border: 8px solid #dddddd;
+  background-color: #dddddd;
 }
 
 /* below 371px (7 buttons x 53px), the toolbar is wrapping to a second line of buttons
@@ -14,7 +15,6 @@ making the height of toolbar of 92px */
 }
 
 .Frame-svg {
-  height: 100%;
-  width: 100%;
-  background-color: #ddddde;
+  /* for height to not surpass viewbox height and reveal bottom of the grid */
+  max-height: 100%;
 }
