@@ -14,6 +14,13 @@ function giveTriangleHeight(triangleEdgeLength) {
 
 const TRIANGLE_HEIGHT = giveTriangleHeight(TRIANGLE_EDGE_LENGTH);
 
+// Coordinate system:
+// starts at 0, 0 (top left)
+// x (horizontal) increase to the right
+// y (vertical) increase to the bottom
+
+// (Be aware: frame viewbox is limiting visible height, grid is higher)
+
 // Give orientation of triangle, pointing to left or right
 function giveTriangleOrientation(x, y) {
   // This rule works because we decided to start grid
@@ -23,23 +30,15 @@ function giveTriangleOrientation(x, y) {
   return (x % 2 === y % 2) ? 'right' : 'left';
 }
 
-// Coordinate system:
-// starts at 0, 0 (top left)
-// x (horizontal) increase to the right
-// y (vertical) increase to the bottom
-
-// (Be aware: frame viewbox is limiting visible height, grid is higher)
-
-// Triangle coordinates are given ordered, for any given triangle,
-// by increasing y:
-// first, top vertex coordinates
-// second, coordinates of the sided vertex (pointing to left or right)
-// third, bottom vertex coordinates
-// and delivered directly as SVG points syntax.
-// related faces coordinates are also delivered directly as SVG points syntax.
-// related faces coords can get negative values, or values upper than the grid
-// dimensions maximums, and that's ok as we limit viewable edges with viewbox.
-function giveCoordinates(x, y, orientation) {
+// All coordinates, triangles coordinates as well as related faces
+// coordinates, are given in this order:
+// first the most upper point (vertex), then other points
+// are indicated in the clockwise order of the points.
+// All coordinates are given in the SVG points syntax.
+// Related faces coords can not get negative values, neither values exceeding the
+// grid dimensions maximums: if the fourth point coord is out of grid,
+// drawing will be limited to the event triangle only (i.e. half of the face)
+function giveTriangleData(x, y, gridDimensions, orientation) {
   // for each triangle, we need to calculate:
 
   // two values of x: x1 and x2
@@ -66,51 +65,37 @@ function giveCoordinates(x, y, orientation) {
     xSide = x1 - TRIANGLE_HEIGHT;
   }
 
-  // for every activeFace, points coords MUST be ordened in only one way (TO DO: check that!)
-  // to enable 'repeated faces' comparisons with actualiseStack
+  // for every kind of related face, points coords MUST be ordened in only one way
+  // (first upper point then clockwise order)
+  // to enable 'repeated faces' comparisons with actualiseStack method
 
   let triangleCoord, topFaceCoord, leftFaceCoord, rightFaceCoord;
   if (orientation === 'left') {
-    triangleCoord = `${x2},${y1} ${x1},${y2} ${x2},${y3}`;
-    topFaceCoord = `${x2},${y1} ${x1},${y2} ${x2},${y3} ${xSide},${y2}`;
-    leftFaceCoord = `${x2},${y1} ${x1},${yUp} ${x1},${y2} ${x2},${y3}`;
-    rightFaceCoord = `${x2},${y1} ${x1},${y2} ${x1},${yDown} ${x2},${y3}`;
+    triangleCoord = `${x2},${y1} ${x2},${y3} ${x1},${y2}`;
+    topFaceCoord = xSide > gridDimensions.width ? triangleCoord : `${x2},${y1} ${xSide},${y2} ${x2},${y3} ${x1},${y2}`;
+    leftFaceCoord = yUp < 0 ? triangleCoord : `${x1},${yUp} ${x2},${y1} ${x2},${y3} ${x1},${y2}`;
+    rightFaceCoord = yDown > gridDimensions.height ? triangleCoord : `${x2},${y1} ${x2},${y3} ${x1},${yDown} ${x1},${y2}`;
   }
   if (orientation === 'right') {
     triangleCoord = `${x1},${y1} ${x2},${y2} ${x1},${y3}`;
-    topFaceCoord = `${x1},${y1} ${x2},${y2} ${x1},${y3} ${xSide},${y2}`;
-    rightFaceCoord = `${x1},${y1} ${x2},${yUp} ${x2},${y2} ${x1},${y3}`;
-    leftFaceCoord = `${x1},${y1} ${x2},${y2} ${x2},${yDown} ${x1},${y3}`;
+    topFaceCoord = xSide < 0 ? triangleCoord : `${x1},${y1} ${x2},${y2} ${x1},${y3} ${xSide},${y2}`;
+    rightFaceCoord = yUp < 0 ? triangleCoord : `${x2},${yUp} ${x2},${y2} ${x1},${y3} ${x1},${y1}`;
+    leftFaceCoord =  yDown > gridDimensions.height ? triangleCoord : `${x1},${y1} ${x2},${y2} ${x2},${yDown} ${x1},${y3}`;
   }
 
-  return { triangleCoord, topFaceCoord, leftFaceCoord, rightFaceCoord };
-}
-
-function triangleData(x, y) {
-  const orientation = giveTriangleOrientation(x, y);
-  const {
-    triangleCoord,
-    topFaceCoord,
-    leftFaceCoord,
-    rightFaceCoord
-  } = giveCoordinates(x, y, orientation);
-
- return {
-    orientation,
-    triangleCoord,
-    topFaceCoord,
-    leftFaceCoord,
-    rightFaceCoord
-  };
+  return { orientation, triangleCoord, topFaceCoord, leftFaceCoord, rightFaceCoord };
 }
 
 function trianglesMapBuilder(gridWidthInTriangles, gridHeightInTriangles) {
+  const gridDimensions = calculateGridDimensions(gridWidthInTriangles, gridHeightInTriangles);
+
   const map = [];
 
   for (let x = 0; x < gridWidthInTriangles; x++) {
     map[x] = [];
     for (let y = 0; y < gridHeightInTriangles; y++) {
-      map[x][y] = triangleData(x, y);
+      const orientation = giveTriangleOrientation(x, y);
+      map[x][y] = giveTriangleData(x, y, gridDimensions, orientation);
     }
   }
   return map;

@@ -15,6 +15,11 @@ const START_GRID_DIMENSIONS = {
   height: 35
 };
 
+// default colors on start
+const LEFT_START_COLOR = 'royalblue';
+const TOP_START_COLOR = 'lightskyblue';
+const RIGHT_START_COLOR = 'mediumblue';
+
 
 function Editor() {
   const [gridDimensionsInTriangles, setGridDimensionsInTriangles] = useState(START_GRID_DIMENSIONS);
@@ -113,29 +118,18 @@ function Editor() {
       return;
     }
 
-    // const points = calculateFacePoints(
-    //   triangleCoord,
-    //   triangleData,
-    //   trianglesMap,
-    //   activeFace
-    // );
-
     let points;
     let fill; // any css color syntax accepted
     if (activeFace === 'left') {
       points = triangleData.leftFaceCoord;
-      fill = 'royalblue';
+      fill = LEFT_START_COLOR;
     } else if (activeFace === 'top') {
       points = triangleData.topFaceCoord;
-      fill = 'lightskyblue';
+      fill = TOP_START_COLOR;
     } else if (activeFace === 'right') {
       points = triangleData.rightFaceCoord;
-      fill = 'mediumblue';
+      fill = RIGHT_START_COLOR;
     }
-
-    // if (points === undefined) { // invalid event on grid edge
-    //   return;
-    // }
 
     const polygon = {
       type: 'face', // other will be 'shape' if ever implemented?
