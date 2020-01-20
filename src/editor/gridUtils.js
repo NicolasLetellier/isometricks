@@ -69,10 +69,13 @@ function giveTriangleData(x, y, gridDimensions, orientation) {
   // (first upper point then clockwise order)
   // to enable 'repeated faces' comparisons with actualiseStack method
 
+  // to fix decimal rounding errors when xSide is just the max grid width
+  const gridWidthTolerance = TRIANGLE_EDGE_LENGTH / 100;
+
   let triangleCoord, topFaceCoord, leftFaceCoord, rightFaceCoord;
   if (orientation === 'left') {
     triangleCoord = `${x2},${y1} ${x2},${y3} ${x1},${y2}`;
-    topFaceCoord = xSide > gridDimensions.width ? triangleCoord : `${x2},${y1} ${xSide},${y2} ${x2},${y3} ${x1},${y2}`;
+    topFaceCoord = xSide > (gridDimensions.width + gridWidthTolerance) ? triangleCoord : `${x2},${y1} ${xSide},${y2} ${x2},${y3} ${x1},${y2}`;
     leftFaceCoord = yUp < 0 ? triangleCoord : `${x1},${yUp} ${x2},${y1} ${x2},${y3} ${x1},${y2}`;
     rightFaceCoord = yDown > gridDimensions.height ? triangleCoord : `${x2},${y1} ${x2},${y3} ${x1},${yDown} ${x1},${y2}`;
   }
