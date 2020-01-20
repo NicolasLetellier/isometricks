@@ -1,16 +1,16 @@
 
 import React from 'react';
 import TrianglesGrid from './TrianglesGrid';
-import { calculateGridDimensions, TRIANGLE_EDGE_LENGTH } from './../gridUtils';
+import { trianglesMapBuilder, calculateGridDimensions, TRIANGLE_EDGE_LENGTH } from './../gridUtils';
 import './Frame.css';
 
 
 function Frame({
   gridDimensionsInTriangles,
-  trianglesMap,
   triangleClickHandler,
   polygonStack
 }) {
+  const trianglesMap = trianglesMapBuilder(gridDimensionsInTriangles.width, gridDimensionsInTriangles.height);
   const gridDimensions = calculateGridDimensions(gridDimensionsInTriangles.width, gridDimensionsInTriangles.height);
 
   // WARNING! we must find a way to not re-render Grid when activeFace,

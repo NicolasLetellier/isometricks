@@ -1,7 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
 
-import { trianglesMapBuilder } from './gridUtils';
 import { buildAndSave } from './downloadUtils';
 
 import Toolbar from './toolbar/Toolbar';
@@ -45,9 +44,6 @@ function Editor() {
   function currentHistoryIndex() {
     return (historyNavIndex === null) ? historyLastIndex : historyNavIndex;
   }
-
-  // TO DO : move down the component tree
-  const trianglesMap = trianglesMapBuilder(gridDimensionsInTriangles.width, gridDimensionsInTriangles.height);
 
   function backwardInHistory() {
     if (historyNavIndex === null) {
@@ -118,7 +114,7 @@ function Editor() {
       return;
     }
 
-    let points;
+    let points; // coordinates of the polygon's points in SVG syntax
     let fill; // any css color syntax accepted
     if (activeFace === 'left') {
       points = triangleData.leftFaceCoord;
@@ -162,7 +158,6 @@ function Editor() {
       />
       <Frame
         gridDimensionsInTriangles={gridDimensionsInTriangles}
-        trianglesMap={trianglesMap}
         triangleClickHandler={triangleClickHandler}
         polygonStack={stacksHistory[currentHistoryIndex()]}
       />
