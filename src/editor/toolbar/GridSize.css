@@ -8,6 +8,8 @@
 
 .grid-size-dropdown {
   position: relative;
+  box-sizing: border-box;
+  max-width: 253px;
   padding: 8px 20px 20px 20px;
   border: 2px solid #aaaaaa;
   background-color: #f6f6f6;

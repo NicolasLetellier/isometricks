@@ -7,6 +7,7 @@ import './Frame.css';
 
 function Frame({
   gridDimensionsInTriangles,
+  backgroundColor,
   triangleClickHandler,
   polygonStack
 }) {
@@ -59,7 +60,7 @@ function Frame({
           height={gridDimensions.height}
           className="Frame-background"
           stroke="none"
-          fill={'white'}
+          fill={backgroundColor}
         />
         <TrianglesGrid
           presentation={triangleBackgroundPresentation}

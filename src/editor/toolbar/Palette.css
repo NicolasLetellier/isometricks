@@ -1,0 +1,20 @@
+
+.palette {
+}
+
+.palette-wrapper {
+  position: absolute;
+}
+
+
+.palette-dropdown {
+  position: relative;
+  box-sizing: border-box;
+  width: 253px;
+  right: 200px;
+  padding: 20px;
+  border: 2px solid #aaaaaa;
+  background-color: #f6f6f6;
+}
+
+

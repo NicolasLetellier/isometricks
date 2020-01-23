@@ -66,11 +66,11 @@ function GridSize({
                 name="size"
                 onClick={() => setSelectedDimensions({
                   width: 16,
-                  height: 35
+                  height: 39
                 })}
               />
               <label htmlFor="mobile-size">
-                for mobile phone (16 x 35)
+                for mobile phone (16 x 39)
               </label>
             </div>
             <div className="radio-component">
@@ -80,11 +80,11 @@ function GridSize({
                 name="size"
                 onClick={() => setSelectedDimensions({
                   width: 46,
-                  height: 35
+                  height: 39
                 })}
               />
               <label htmlFor="desktop-size">
-                for desktop (46 x 35)
+                for desktop (46 x 39)
               </label>
             </div>
             <button

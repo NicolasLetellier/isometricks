@@ -11,20 +11,28 @@ import './Editor.css';
 // indicated in triangles
 const START_GRID_DIMENSIONS = {
   width: 16,
-  height: 35
+  height: 39
 };
 
 // default colors on start
 const LEFT_START_COLOR = 'royalblue';
 const TOP_START_COLOR = 'lightskyblue';
 const RIGHT_START_COLOR = 'mediumblue';
+const BACKGROUND_START_COLOR = 'white';
 
 
 function Editor() {
   const [gridDimensionsInTriangles, setGridDimensionsInTriangles] = useState(START_GRID_DIMENSIONS);
   // activeFace possible values: 'left', 'top', 'right', null (invalidate events)
   const [activeFace, setActiveFace] = useState('left');
-  // onDialog possible values: null, 'grid size', 'color'
+  // selectedColors must be an object as {left: '', top: '', right: '', background: ''}
+  const [selectedColors, setSelectedColors] = useState({
+    left: LEFT_START_COLOR,
+    top: TOP_START_COLOR,
+    right: RIGHT_START_COLOR,
+    background: BACKGROUND_START_COLOR
+  });
+  // onDialog possible values: null, 'grid size', 'palette'
   const [onDialog, setOnDialog] = useState(null);
   // history array of polygon stacks
   // polygon stack: array of polygon objects to be draw
@@ -118,13 +126,13 @@ function Editor() {
     let fill; // any css color syntax accepted
     if (activeFace === 'left') {
       points = triangleData.leftFaceCoord;
-      fill = LEFT_START_COLOR;
+      fill = selectedColors.left;
     } else if (activeFace === 'top') {
       points = triangleData.topFaceCoord;
-      fill = TOP_START_COLOR;
+      fill = selectedColors.top;
     } else if (activeFace === 'right') {
       points = triangleData.rightFaceCoord;
-      fill = RIGHT_START_COLOR;
+      fill = selectedColors.right;
     }
 
     const polygon = {
@@ -149,6 +157,8 @@ function Editor() {
       <Toolbar
         activeFace={activeFace}
         setActiveFace={setActiveFace}
+        selectedColors={selectedColors}
+        setSelectedColors={setSelectedColors}
         onDialog={onDialog}
         setOnDialog={setOnDialog}
         backwardInHistory={backwardInHistoryProp()}
@@ -158,6 +168,7 @@ function Editor() {
       />
       <Frame
         gridDimensionsInTriangles={gridDimensionsInTriangles}
+        backgroundColor={selectedColors.background}
         triangleClickHandler={triangleClickHandler}
         polygonStack={stacksHistory[currentHistoryIndex()]}
       />
