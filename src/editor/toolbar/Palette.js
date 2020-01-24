@@ -9,9 +9,16 @@ function Palette({
   setSelectedColors
 }) {
   const [inputColor, setInputColor] = useState('');
+  // initialize colorHistory array with default start colors
+  const [colorHistory, setColorHistory] = useState([
+    selectedColors.right,
+    selectedColors.top,
+    selectedColors.left
+  ]);
 
   function closeDialog() {
     setOnDialog(null);
+    setInputColor('');
   }
 
   function toogleDialog() {
@@ -26,9 +33,41 @@ function Palette({
     // colorTarget can only be one of the selectedColors keys:
     // left, top, right or background
     setSelectedColors((previousColors) => {
-      previousColors[colorTarget] = color;
-      return previousColors;
+      const copiedColors = Object.assign({}, previousColors);
+      copiedColors[colorTarget] = color;
+      return copiedColors;
     })
+    addToColorHistory(color);
+    setInputColor('');
+  }
+
+  function addToColorHistory(color) {
+    setColorHistory((previousHistory) => {
+      const copiedHistory = previousHistory.slice();
+      if (!copiedHistory.includes(color)) {
+        copiedHistory.push(color);
+      }
+      return copiedHistory;
+    });
+  }
+
+  function colorHistoryListItems() {
+    const copiedHistory = colorHistory.slice();
+    return copiedHistory.reverse().map((color) => (
+      <li
+        onClick={() => setInputColor(color)}
+      >
+        <div
+          style={{
+            backgroundColor: color,
+            width: '15px',
+            height: '15px'
+          }}
+        >
+        </div>
+        {color}
+      </li>
+    ));
   }
 
   return (
@@ -80,7 +119,13 @@ function Palette({
       {onDialog === 'palette' && (
         <div className="palette-wrapper">
           <div className="palette-dropdown">
-            <label>Introduce a color (any CSS color syntax):</label>
+            <button
+              type="button"
+              onClick={() => closeDialog()}
+            >
+              close
+            </button>
+            <label>Introduce a color (any CSS color syntax), or choose one in lists below:</label>
             <input
               value={inputColor}
               onChange={(event) => setInputColor(event.target.value)}
@@ -88,25 +133,41 @@ function Palette({
             </input>
             <p>And apply it to:</p>
             <button
+              type="button"
+              disabled={inputColor === ''}
               onClick={() => applyColor(inputColor, 'left')}
             >
-              left
+              left:
+              {selectedColors.left}
             </button>
             <button
+              type="button"
+              disabled={inputColor === ''}
               onClick={() => applyColor(inputColor, 'top')}
             >
-              top
+              top:
+              {selectedColors.top}
             </button>
             <button
+              type="button"
+              disabled={inputColor === ''}
               onClick={() => applyColor(inputColor, 'right')}
             >
-              right
+              right:
+              {selectedColors.right}
             </button>
             <button
+              type="button"
+              disabled={inputColor === ''}
               onClick={() => applyColor(inputColor, 'background')}
             >
-              background
+              background:
+              {selectedColors.background}
             </button>
+            <p>Palette history:</p>
+            <ul>
+              {colorHistoryListItems()}
+            </ul>
           </div>
         </div>
       )}
