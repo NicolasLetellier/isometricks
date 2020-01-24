@@ -149,7 +149,7 @@ function Editor() {
 
   function buildAndSaveFile() {
     const displayedPolygonStack = stacksHistory[currentHistoryIndex()];
-    buildAndSave(displayedPolygonStack, gridDimensionsInTriangles);
+    buildAndSave(displayedPolygonStack, gridDimensionsInTriangles, selectedColors.background);
   }
 
   return (
