@@ -11,6 +11,7 @@ function Palette({
   const [inputColor, setInputColor] = useState('');
   // initialize colorHistory array with default start colors
   const [colorHistory, setColorHistory] = useState([
+    selectedColors.background,
     selectedColors.right,
     selectedColors.top,
     selectedColors.left
@@ -44,9 +45,14 @@ function Palette({
   function addToColorHistory(color) {
     setColorHistory((previousHistory) => {
       const copiedHistory = previousHistory.slice();
-      if (!copiedHistory.includes(color)) {
-        copiedHistory.push(color);
+      const alreadyUsedColorIndex = copiedHistory.findIndex(
+        (historicColor) => (color === historicColor)
+      );
+      if (alreadyUsedColorIndex !== -1) {
+        // remove color repeatdly used from the history array
+        copiedHistory.splice(alreadyUsedColorIndex, 1);
       }
+      copiedHistory.push(color);
       return copiedHistory;
     });
   }
@@ -134,38 +140,79 @@ function Palette({
             >
             </input>
             <p>And apply it to:</p>
-            <button
-              type="button"
-              disabled={inputColor === ''}
-              onClick={() => applyColor(inputColor, 'left')}
+            <div
+              className="color-targets"
+              style={{
+                backgroundColor: selectedColors.background
+              }}
             >
-              left:
-              {selectedColors.left}
-            </button>
-            <button
-              type="button"
-              disabled={inputColor === ''}
-              onClick={() => applyColor(inputColor, 'top')}
-            >
-              top:
-              {selectedColors.top}
-            </button>
-            <button
-              type="button"
-              disabled={inputColor === ''}
-              onClick={() => applyColor(inputColor, 'right')}
-            >
-              right:
-              {selectedColors.right}
-            </button>
-            <button
-              type="button"
-              disabled={inputColor === ''}
-              onClick={() => applyColor(inputColor, 'background')}
-            >
-              background:
-              {selectedColors.background}
-            </button>
+              <div
+                className="faces-wrapper"
+              >
+                <button
+                  type="button"
+                  disabled={inputColor === ''}
+                >
+                  <svg
+                    viewBox="0 0 0.8660 1.5"
+                  >
+                    <polygon
+                      onClick={() => applyColor(inputColor, 'left')}
+                      points="0,0 0.8660,0.5 0.8660,1.5 0,1"
+                      style={{
+                        fill: selectedColors.left,
+                      }}
+                    >
+                    </polygon>
+                  </svg>
+                  {selectedColors.left}
+                </button>
+                <button
+                  type="button"
+                  disabled={inputColor === ''}
+                >
+                  <svg
+                    viewBox="0 0 1.7321 1"
+                  >
+                    <polygon
+                      onClick={() => applyColor(inputColor, 'top')}
+                      points="0.8660,0 1.7321,0.5 0.8660,1 0,0.5"
+                      style={{
+                        fill: selectedColors.top,
+                      }}
+                    >
+                    </polygon>
+                  </svg>
+                  {selectedColors.top}
+                </button>
+                <button
+                  type="button"
+                  disabled={inputColor === ''}
+                >
+                  <svg
+                    viewBox="0 0 0.8660 1.5"
+                  >
+                    <polygon
+                      onClick={() => applyColor(inputColor, 'right')}
+                      points="0.8660,0 0.8660,1 0,1.5 0,0.5"
+                      style={{
+                        fill: selectedColors.right,
+                      }}
+                    >
+                    </polygon>
+                  </svg>
+                  {selectedColors.right}
+                </button>
+              </div>
+              <button
+                className="background-target"
+                type="button"
+                disabled={inputColor === ''}
+                onClick={() => applyColor(inputColor, 'background')}
+              >
+                {`background: ${selectedColors.background}`}
+              </button>
+            </div>
             <div
               className="color-list"
             >

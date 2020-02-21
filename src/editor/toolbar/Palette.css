@@ -57,7 +57,7 @@
   font-size: 0.7em;
   padding: 3px;
   margin-bottom: 6px;
-  hyphens: auto;
+  overflow-wrap: break-word;
   text-align: center;
 }
 
@@ -73,5 +73,52 @@
 
 .palette-dropdown .color-list li .color-sample:hover {
   cursor: pointer;
+}
+
+.palette-dropdown .color-targets {
+  width: 209px;
+}
+
+.palette-dropdown .faces-wrapper {
+  background: linear-gradient(#f6f6f6, #f6f6f6 30%, transparent 65%, transparent);
+  margin-bottom: 8px;
+}
+
+.palette-dropdown .faces-wrapper button {
+  padding: 4px 1px 4px 1px;
+  width: 69px;
+  border: none;
+  background-color: transparent;
+  overflow-wrap: break-word;
+  color: #282828;
+}
+
+/* width 67px > height defined as 58px to conserve same proportion between
+right/left and top faces */
+.palette-dropdown .faces-wrapper button svg {
+  display: block;
+  height: 58px;
+}
+
+/* we move the cursor changes from the faces' buttons to the faces' polygons,
+  where are also the click events */
+.palette-dropdown .faces-wrapper button:hover,
+.palette-dropdown .faces-wrapper button:disabled {
+  cursor: default;
+}
+.palette-dropdown .faces-wrapper button:disabled polygon:hover {
+  cursor: not-allowed;
+}
+.palette-dropdown .faces-wrapper button polygon:hover {
+  cursor: pointer;
+}
+
+.palette-dropdown button.background-target {
+  width: 100%;
+  min-height: 34px;
+  border: none;
+  background-color: transparent;
+  overflow-wrap: break-word;
+  color: #282828;
 }
 

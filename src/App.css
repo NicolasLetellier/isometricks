@@ -28,6 +28,14 @@
   margin: 12px 22px;
 }
 
+.App a {
+  text-decoration: none;
+}
+
+.App a:hover {
+  text-decoration: underline;
+}
+
 .info-header .App-logo {
   height: 54px;
   margin: 24px 32px 24px 36px;

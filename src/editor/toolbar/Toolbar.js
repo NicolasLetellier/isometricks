@@ -89,10 +89,10 @@ function Toolbar({
           >
           <svg
             viewBox="0 0 0.8660 1.5"
-            >
+          >
             <polygon
               points="0,0 0.8660,0.5 0.8660,1.5 0,1"
-              >
+            >
             </polygon>
           </svg>
         </button>
@@ -104,10 +104,10 @@ function Toolbar({
           >
           <svg
             viewBox="0 0 1.7321 1"
-            >
+          >
             <polygon
               points="0.8660,0 1.7321,0.5 0.8660,1 0,0.5"
-              >
+            >
             </polygon>
           </svg>
         </button>
@@ -119,10 +119,10 @@ function Toolbar({
           >
           <svg
             viewBox="0 0 0.8660 1.5"
-            >
+          >
             <polygon
               points="0.8660,0 0.8660,1 0,1.5 0,0.5"
-              >
+            >
             </polygon>
           </svg>
         </button>
