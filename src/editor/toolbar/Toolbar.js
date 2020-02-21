@@ -79,6 +79,10 @@ function Toolbar({
             </g>
           </svg>
         </button>
+        <div
+          className="placeholder-for-future-button placeholder-for-eraser"
+        >
+        </div>
       </div>
       <div className="center-buttons">
         <button

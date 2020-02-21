@@ -9,10 +9,10 @@
   justify-content: space-evenly;
 }
 
-/* below 371px (7 buttons x 53px), the toolbar is wrapping to a second line of buttons */
-/* minimum screen width supported is 212px without having to manage
-  a third line of buttons (design of toolbar is breaking below 212px for 7 buttons in 2 groups: 4 + 3) */
-@media screen and (max-width: 370px) {
+/* below 477px (9 buttons x 53px), the toolbar is wrapping to a second line of buttons */
+/* minimum screen width supported by the toolbar is 265px without having to manage
+  a third line of buttons (design of toolbar is breaking below 265px for 8 buttons in 2 groups: 5 + (3+1)) */
+@media screen and (max-width: 476px) {
   .Toolbar {
     height: 92px;
   }
@@ -104,7 +104,7 @@
   stroke-width: 0;
 }
 
-/* .placeholder-for-future-button {
+.placeholder-for-future-button {
   display: inline-block;
   width: 53px;
-} */
+}

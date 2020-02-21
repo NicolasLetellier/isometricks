@@ -1,11 +1,7 @@
 
-.palette {
-}
-
 .palette-wrapper {
   position: absolute;
 }
-
 
 .palette-dropdown {
   position: relative;
@@ -29,51 +25,7 @@
   outline: none;
 }
 
-.palette-dropdown .color-list {
-  margin-top: 22px;
-  border-top: 1px solid #aaaaaa;
-}
-
-.palette-dropdown .color-list p {
-  margin-top: 6px;
-  margin-bottom: 12px;
-  width: 100%;
-  text-align: center;
-}
-
-.palette-dropdown .color-list ul {
-  display: flex;
-  flex-wrap: wrap;
-  list-style: none;
-  margin-top: 12px;
-  margin-bottom: 12px;
-  padding: 0;
-}
-
-.palette-dropdown .color-list li {
-  box-sizing: border-box;
-  flex: 0 0 69px;
-  width: 69px;
-  font-size: 0.7em;
-  padding: 3px;
-  margin-bottom: 6px;
-  overflow-wrap: break-word;
-  text-align: center;
-}
-
-.palette-dropdown .color-list li .color-sample {
-  margin-left: 16px;
-  box-sizing: border-box;
-  width: 32px;
-  height: 32px;
-  border: 1px solid #ffffff;
-  border-radius: 11px;
-  margin-bottom: 1px;
-}
-
-.palette-dropdown .color-list li .color-sample:hover {
-  cursor: pointer;
-}
+/* color targets rules */
 
 .palette-dropdown .color-targets {
   width: 209px;
@@ -101,7 +53,7 @@ right/left and top faces */
 }
 
 /* we move the cursor changes from the faces' buttons to the faces' polygons,
-  where are also the click events */
+where are also the click events */
 .palette-dropdown .faces-wrapper button:hover,
 .palette-dropdown .faces-wrapper button:disabled {
   cursor: default;
@@ -122,3 +74,52 @@ right/left and top faces */
   color: #282828;
 }
 
+.palette-dropdown .color-list {
+  margin-top: 22px;
+  border-top: 1px solid #aaaaaa;
+  overflow-y: scroll;
+}
+
+/* color list rules */
+
+.palette-dropdown .color-list p {
+  margin-top: 6px;
+  margin-bottom: 12px;
+  width: 100%;
+  text-align: center;
+}
+
+.palette-dropdown .color-list ul {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  margin-top: 12px;
+  margin-bottom: 12px;
+  padding: 0;
+  max-height: 90px;
+}
+
+.palette-dropdown .color-list li {
+  box-sizing: border-box;
+  flex: 0 0 69px;
+  width: 69px;
+  font-size: 0.7em;
+  padding: 3px;
+  margin-bottom: 6px;
+  overflow-wrap: break-word;
+  text-align: center;
+}
+
+.palette-dropdown .color-list li .color-sample {
+  margin-left: 16px;
+  box-sizing: border-box;
+  width: 32px;
+  height: 32px;
+  border: 1px solid #ffffff;
+  border-radius: 11px;
+  margin-bottom: 1px;
+}
+
+.palette-dropdown .color-list li .color-sample:hover {
+  cursor: pointer;
+}

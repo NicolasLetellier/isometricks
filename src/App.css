@@ -4,6 +4,8 @@
   color: #282828;
 }
 
+/* minimum screen width supported by the header is 287 px, below this the
+  info-btn will wrongly wrap into the toolbar */
 .App-header {
   transition-property: height;
   transition-duration: 0.2s;

@@ -125,15 +125,15 @@ function Palette({
               close
             </button>
             <label>
-              Introduce a color (any&nbsp;
+              Introduce any&nbsp;
               <a
                 href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value"
                 target="_blank"
                 rel="noreferrer noopener"
               >
-                CSS color syntax
+                CSS color
               </a>
-              ), or pick one in lists below:</label>
+              , or rescue one from history:</label>
             <input
               value={inputColor}
               onChange={(event) => setInputColor(event.target.value)}
