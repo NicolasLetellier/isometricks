@@ -39,6 +39,9 @@ function Info() {
         <li>
           face selector buttons
         </li>
+        <li>
+          configuration tool for faces' colors
+        </li>
       </ul>
       <p>
         If you like this tool, please promote it!
