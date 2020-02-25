@@ -1,5 +1,8 @@
 
 import React, { useState } from 'react';
+
+import colorValidator from './colorValidator.js';
+
 import close from './close.svg';
 import './Palette.css';
 
@@ -9,7 +12,7 @@ function Palette({
   selectedColors,
   setSelectedColors
 }) {
-  const [inputColor, setInputColor] = useState('');
+  const [colorInput, setColorInput] = useState('');
   // initialize colorHistory array with default start colors
   const [colorHistory, setColorHistory] = useState([
     selectedColors.background,
@@ -17,10 +20,12 @@ function Palette({
     selectedColors.top,
     selectedColors.left
   ]);
+  const [colorSyntaxErrorMessage, setColorSyntaxErrorMessage] = useState(null);
 
   function closeDialog() {
     setOnDialog(null);
-    setInputColor('');
+    setColorInput('');
+    setColorSyntaxErrorMessage(null);
   }
 
   function toogleDialog() {
@@ -31,16 +36,34 @@ function Palette({
     }
   }
 
+  function changeInput(color) {
+    // if there is an error message displayed from a previous
+    // submission, remove it:
+    setColorSyntaxErrorMessage(null);
+
+    setColorInput(color);
+  }
+
   function applyColor(color, colorTarget) {
-    // colorTarget can only be one of the selectedColors keys:
-    // left, top, right or background
-    setSelectedColors((previousColors) => {
-      const copiedColors = Object.assign({}, previousColors);
-      copiedColors[colorTarget] = color;
-      return copiedColors;
-    })
-    addToColorHistory(color);
-    setInputColor('');
+    if (color !== '') {
+      const trimmedColor = color.trim();
+
+      if (!colorValidator(trimmedColor)) {
+        setColorSyntaxErrorMessage('incorrect color syntax');
+
+      } else {
+        // colorTarget can only be one of the selectedColors keys:
+        // left, top, right or background
+        setSelectedColors((previousColors) => {
+          const copiedColors = Object.assign({}, previousColors);
+          copiedColors[colorTarget] = color;
+          return copiedColors;
+        })
+
+        addToColorHistory(color);
+        changeInput('');
+      }
+    }
   }
 
   function addToColorHistory(color) {
@@ -50,7 +73,7 @@ function Palette({
         (historicColor) => (color === historicColor)
       );
       if (alreadyUsedColorIndex !== -1) {
-        // remove color repeatdly used from the history array
+        // remove color repeatedly used from the history array
         copiedHistory.splice(alreadyUsedColorIndex, 1);
       }
       copiedHistory.push(color);
@@ -65,7 +88,7 @@ function Palette({
         key={color}
       >
         <div
-          onClick={() => setInputColor(color)}
+          onClick={() => changeInput(color)}
           className="color-sample"
           style={{
             backgroundColor: color
@@ -141,10 +164,17 @@ function Palette({
               </a>
               , or rescue one from history:</label>
             <input
-              value={inputColor}
-              onChange={(event) => setInputColor(event.target.value)}
+              value={colorInput}
+              onChange={(event) => changeInput(event.target.value)}
             >
             </input>
+            {colorSyntaxErrorMessage && (
+              <p
+                className="color-syntax-error-message"
+              >
+                {colorSyntaxErrorMessage}
+              </p>
+            )}
             <p>And apply it to:</p>
             <div
               className="color-targets"
@@ -157,13 +187,13 @@ function Palette({
               >
                 <button
                   type="button"
-                  disabled={inputColor === ''}
+                  disabled={colorInput === ''}
                 >
                   <svg
                     viewBox="0 0 0.8660 1.5"
                   >
                     <polygon
-                      onClick={() => applyColor(inputColor, 'left')}
+                      onClick={() => applyColor(colorInput, 'left')}
                       points="0,0 0.8660,0.5 0.8660,1.5 0,1"
                       style={{
                         fill: selectedColors.left,
@@ -175,13 +205,13 @@ function Palette({
                 </button>
                 <button
                   type="button"
-                  disabled={inputColor === ''}
+                  disabled={colorInput === ''}
                 >
                   <svg
                     viewBox="0 0 1.7321 1"
                   >
                     <polygon
-                      onClick={() => applyColor(inputColor, 'top')}
+                      onClick={() => applyColor(colorInput, 'top')}
                       points="0.8660,0 1.7321,0.5 0.8660,1 0,0.5"
                       style={{
                         fill: selectedColors.top,
@@ -193,13 +223,13 @@ function Palette({
                 </button>
                 <button
                   type="button"
-                  disabled={inputColor === ''}
+                  disabled={colorInput === ''}
                 >
                   <svg
                     viewBox="0 0 0.8660 1.5"
                   >
                     <polygon
-                      onClick={() => applyColor(inputColor, 'right')}
+                      onClick={() => applyColor(colorInput, 'right')}
                       points="0.8660,0 0.8660,1 0,1.5 0,0.5"
                       style={{
                         fill: selectedColors.right,
@@ -213,8 +243,8 @@ function Palette({
               <button
                 className="background-target"
                 type="button"
-                disabled={inputColor === ''}
-                onClick={() => applyColor(inputColor, 'background')}
+                disabled={colorInput === ''}
+                onClick={() => applyColor(colorInput, 'background')}
               >
                 {`background: ${selectedColors.background}`}
               </button>

@@ -44,6 +44,12 @@
   outline: none;
 }
 
+.color-syntax-error-message {
+  color: #cc0000;
+  margin-top: 4px;
+  font-size: 0.9em;
+}
+
 /* color targets rules */
 
 .palette-dropdown .color-targets {
