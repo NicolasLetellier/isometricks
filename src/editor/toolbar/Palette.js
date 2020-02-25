@@ -1,5 +1,6 @@
 
 import React, { useState } from 'react';
+import close from './close.svg';
 import './Palette.css';
 
 function Palette({
@@ -118,12 +119,17 @@ function Palette({
       {onDialog === 'palette' && (
         <div className="palette-wrapper">
           <div className="palette-dropdown">
-            <button
-              type="button"
-              onClick={() => closeDialog()}
+            <div
+              className="close-button-wrapper"
             >
-              close
-            </button>
+              <button
+                className="close-button"
+                type="button"
+                onClick={() => closeDialog()}
+              >
+                <img src={close} className="close-icon" alt="close icon" />
+              </button>
+            </div>
             <label>
               Introduce any&nbsp;
               <a
