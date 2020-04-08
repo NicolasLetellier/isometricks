@@ -1,0 +1,19 @@
+
+.close-dropdown-button-wrapper {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.close-dropdown-button {
+  flex: 0 0 auto;
+  padding: 0;
+  margin-bottom: 10px;
+  border: none;
+  background-color: transparent;
+  display: block;
+}
+
+.close-dropdown-button .close-icon {
+  width: 14px;
+  height: 14px;
+}

@@ -1,9 +1,9 @@
 
 import React, { useState } from 'react';
 
-import colorValidator from './colorValidator.js';
+import CloseDropdownButton from './CloseDropdownButton';
+import colorValidator from './colorValidator';
 
-import close from './close.svg';
 import './Palette.css';
 
 function Palette({
@@ -142,17 +142,9 @@ function Palette({
       {onDialog === 'palette' && (
         <div className="palette-wrapper">
           <div className="palette-dropdown">
-            <div
-              className="close-button-wrapper"
-            >
-              <button
-                className="close-button"
-                type="button"
-                onClick={() => closeDialog()}
-              >
-                <img src={close} className="close-icon" alt="close icon" />
-              </button>
-            </div>
+            <CloseDropdownButton
+              onClick={closeDialog}
+            />
             <label>
               Introduce any&nbsp;
               <a
