@@ -1,6 +1,8 @@
 
 import React, { useState } from 'react';
 
+import CloseDropdownButton from './CloseDropdownButton';
+
 import './GridSize.css';
 
 function GridSize({
@@ -56,7 +58,10 @@ function GridSize({
       {onDialog === 'grid size' && (
         <div className="grid-size-wrapper">
           <div className="grid-size-dropdown">
-            <p>
+            <CloseDropdownButton
+              onClick={closeDialog}
+            />
+            <p className="size-instructions">
               Select a size for a new <strong>empty</strong> grid:
             </p>
             <div className="radio-component">
@@ -94,13 +99,6 @@ function GridSize({
               onClick={() => applySelection()}
             >
               Apply
-            </button>
-            <button
-              type="button"
-              className="close-grid-size dialog-btn"
-              onClick={() => closeDialog()}
-            >
-              Close
             </button>
           </div>
         </div>

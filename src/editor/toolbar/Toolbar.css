@@ -50,20 +50,6 @@
   vertical-align: top; /* to fix misalignement after padding re-calculation */
 }
 
-/* used in dialog window opening when size or color selection */
-.Toolbar .dialog-btn, .Toolbar .dialog-btn[disabled]:hover {
-  padding: 8px;
-  background-color: #f2f2f2;
-  font-size: 1em;
-  border: 1px solid #bbbbbb;
-}
-
-.Toolbar .dialog-btn:hover {
-  background-color: #eaeaea;
-  border: 1px solid #aaaaaa;
-}
-
-
 .Toolbar .top {
   /* button width for top face is limiting/defining svg size, when
   for left and right it's the button height. Here width 53 px is calculated

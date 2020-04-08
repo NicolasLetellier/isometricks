@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 
 import CloseDropdownButton from './CloseDropdownButton';
+
 import colorValidator from './colorValidator';
 
 import './Palette.css';
