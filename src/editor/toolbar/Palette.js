@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 
 import CloseDropdownButton from './CloseDropdownButton';
 
-import colorValidator from './colorValidator';
+import { cssColorSyntaxValidator } from '../colorUtils';
 
 import './Palette.css';
 
@@ -49,7 +49,7 @@ function Palette({
     if (color !== '') {
       const trimmedColor = color.trim();
 
-      if (!colorValidator(trimmedColor)) {
+      if (!cssColorSyntaxValidator(trimmedColor)) {
         setColorSyntaxErrorMessage('incorrect color syntax');
 
       } else {
