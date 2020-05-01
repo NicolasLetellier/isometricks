@@ -15,7 +15,7 @@ function cssColorSyntaxValidator(colorInput) {
 function colorToRgbParser(cssColor) {
   const div = document.createElement('div');
   div.style.color = cssColor;
-  const match = Window.getComputedStyle(div).color.match(/^rgb\s*\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})\s*\)$/i);
+  const match = getComputedStyle(div).color.match(/^rgb\s*\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})\s*\)$/i);
   if (match) {
     return [
       match[1],

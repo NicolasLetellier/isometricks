@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 
 import CloseDropdownButton from './CloseDropdownButton';
 
-import { cssColorSyntaxValidator } from '../colorUtils';
+import { cssColorSyntaxValidator, textContrastedGrey } from '../colorUtils';
 
 import './Palette.css';
 
@@ -21,6 +21,7 @@ function Palette({
     selectedColors.top,
     selectedColors.left
   ]);
+  const [contrastedTextColor, setContrastedTextColor] = useState([108, 108, 108]);
   const [colorSyntaxErrorMessage, setColorSyntaxErrorMessage] = useState(null);
 
   function closeDialog() {
@@ -57,11 +58,15 @@ function Palette({
         // left, top, right or background
         setSelectedColors((previousColors) => {
           const copiedColors = Object.assign({}, previousColors);
-          copiedColors[colorTarget] = color;
+          copiedColors[colorTarget] = trimmedColor;
           return copiedColors;
         })
 
+        const contrastedTextRgb = textContrastedGrey(trimmedColor);
+        setContrastedTextColor(contrastedTextRgb);
+
         addToColorHistory(color);
+
         changeInput('');
       }
     }
@@ -194,7 +199,13 @@ function Palette({
                     >
                     </polygon>
                   </svg>
-                  {selectedColors.left}
+                  <p
+                    style={{
+                      color: `rgb(${contrastedTextColor[0]}, ${contrastedTextColor[1]}, ${contrastedTextColor[2]})`
+                    }}
+                  >
+                    {selectedColors.left}
+                  </p>
                 </button>
                 <button
                   type="button"
