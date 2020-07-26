@@ -35,6 +35,17 @@ function colorToRgbParser(cssColor) {
   }
 }
 
+// to calculate (approximatively?) luminance of a color with alpha-channel
+// and placed on another background color
+function luminanceWithAlphaAndBackground(r, g, b , a, backgroundLum) {
+  const lum = luminance(r,g,b);
+  if (a !== undefined) {
+    return (lum * a) + (backgroundLum * (1 - a));
+  } else {
+    return lum;
+  }
+}
+
 // luminance and contrast: from https://stackoverflow.com/questions/9733288/how-to-programmatically-calculate-the-contrast-ratio-between-two-colors
 // based on https://www.w3.org/TR/2008/REC-WCAG20-20081211/#contrast-ratiodef
 
@@ -58,6 +69,11 @@ function luminance(r, g, b) {
 //   return (brightest + 0.05) / (darkest + 0.05);
 // }
 
+const whiteLum = luminance(255, 255, 255);
+
+// to get a grey text that can contrast with the background color.
+// under the background there is a default layer of white to be able to calculate
+// background luminance in case alpha channel is present in background color
 function gridContrastedGrey(cssColor) {
   let rgb;
   try {
@@ -67,11 +83,14 @@ function gridContrastedGrey(cssColor) {
     // fallback: grid full white
     return [255, 255, 255];
   }
-  const lum = luminance(rgb.r, rgb.g, rgb.b);
+  const lum = luminanceWithAlphaAndBackground(rgb.r, rgb.g, rgb.b, rgb.a, whiteLum);
   // grey values empirically obtained by commented test below
   return lum > 0.5 ? [137, 137, 137] : [225, 225, 225];
 }
 
+// to get a grey grid that can contrast with the background color.
+// under the background there is a default layer of white to be able to calculate
+// background luminance in case alpha channel is present in background color
 function textContrastedGrey(cssColor) {
   let rgb;
   try {
@@ -81,7 +100,7 @@ function textContrastedGrey(cssColor) {
     // fallback: text full black
     return [0, 0, 0];
   }
-  const lum = luminance(rgb.r, rgb.g, rgb.b);
+  const lum = luminanceWithAlphaAndBackground(rgb.r, rgb.g, rgb.b, rgb.a, whiteLum);
   // grey values empirically obtained by commented test below
   return lum > 0.5 ? [108, 108, 108] : [237, 237, 237];
 }
@@ -92,6 +111,25 @@ function textContrastedGrey(cssColor) {
 //   console.log('0.5 luminance grey : ' + luminance(188, 188, 188));
 //   console.log('0.25 luminance grey : ' + luminance(137, 137, 137));
 //   console.log('0.15 luminance grey : ' + luminance(108, 108, 108));
+// }
+
+// function luminanceWithAlphaTest() {
+//   const testArray = [
+//     [0, 0, 0, 0],
+//     [0, 0, 0, 0.1],
+//     [0, 0, 0, 1],
+//     [255, 255, 255, 0],
+//     [255, 255, 255, 1],
+//     [200, 200, 200, 0],
+//     [200, 200, 200, 1],
+//     [200, 200, 200, 0.8],
+//     [200, 200, 200, 0.2],
+//     [50, 50, 50, 0.8],
+//     [50, 50, 50, 0.2]
+//   ];
+//   testArray.forEach((values, index) => {
+//     console.log('Test ' + (index + 1) + ' -- lum: ' + luminance(values[0], values[1], values[2]) + ' / alpha: ' + values[3] + ' / luminanceWithAlpha: ' + luminanceWithAlphaAndBackground(values[0], values[1], values[2], values[3], 1));
+//   });
 // }
 
 export { cssColorSyntaxValidator, gridContrastedGrey, textContrastedGrey };
