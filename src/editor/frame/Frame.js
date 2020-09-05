@@ -2,6 +2,7 @@
 import React from 'react';
 import TrianglesGrid from './TrianglesGrid';
 import { trianglesMapBuilder, calculateGridDimensions, TRIANGLE_EDGE_LENGTH } from './../gridUtils';
+import { gridContrastedGrey } from './../colorUtils';
 import './Frame.css';
 
 
@@ -14,11 +15,14 @@ function Frame({
   const trianglesMap = trianglesMapBuilder(gridDimensionsInTriangles.width, gridDimensionsInTriangles.height);
   const gridDimensions = calculateGridDimensions(gridDimensionsInTriangles.width, gridDimensionsInTriangles.height);
 
+  const gridLinesContrastedColor = gridContrastedGrey(backgroundColor);
+  const strokeContrastedColor = `rgb(${gridLinesContrastedColor[0]}, ${gridLinesContrastedColor[1]}, ${gridLinesContrastedColor[2]})`;
+
   // WARNING! we must find a way to not re-render Grid when activeFace,
   // colors or drawing history change... but is it re-rendering? to be checked
 
   const triangleBackgroundPresentation = {
-    stroke: 'silver',
+    stroke: strokeContrastedColor,
     strokeWidth: '0.01',
     fill: 'transparent'
   };
@@ -53,6 +57,15 @@ function Frame({
         viewBox={`0 ${TRIANGLE_EDGE_LENGTH / 2} ${gridDimensions.width} ${gridDimensions.height - TRIANGLE_EDGE_LENGTH}`}
         preserveAspectRatio="xMidYMin"
       >
+        <rect
+          x="0"
+          y="0"
+          width={gridDimensions.width}
+          height={gridDimensions.height}
+          className="Frame-default-white-background"
+          stroke="none"
+          fill="white"
+        />
         <rect
           x="0"
           y="0"

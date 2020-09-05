@@ -35,11 +35,11 @@
 
 .palette-dropdown .color-targets {
   width: 209px;
+  background-color: white;
 }
 
 .palette-dropdown .faces-wrapper {
-  background: linear-gradient(#f6f6f6, #f6f6f6 30%, transparent 65%, transparent);
-  margin-bottom: 8px;
+  background: linear-gradient(#f6f6f6, #f6f6f6 20%, transparent 40%, transparent);
 }
 
 .palette-dropdown .faces-wrapper button {
@@ -56,6 +56,10 @@ right/left and top faces */
 .palette-dropdown .faces-wrapper button svg {
   display: block;
   height: 58px;
+}
+
+.palette-dropdown .faces-wrapper button .selected-color-text {
+  margin-top: 6px;
 }
 
 /* we move the cursor changes from the faces' buttons to the faces' polygons,

@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 
 import CloseDropdownButton from './CloseDropdownButton';
 
-import colorValidator from './colorValidator';
+import { cssColorSyntaxValidator, textContrastedGrey } from '../colorUtils';
 
 import './Palette.css';
 
@@ -21,6 +21,7 @@ function Palette({
     selectedColors.top,
     selectedColors.left
   ]);
+  const [contrastedTextColor, setContrastedTextColor] = useState([108, 108, 108]);
   const [colorSyntaxErrorMessage, setColorSyntaxErrorMessage] = useState(null);
 
   function closeDialog() {
@@ -49,7 +50,7 @@ function Palette({
     if (color !== '') {
       const trimmedColor = color.trim();
 
-      if (!colorValidator(trimmedColor)) {
+      if (!cssColorSyntaxValidator(trimmedColor)) {
         setColorSyntaxErrorMessage('incorrect color syntax');
 
       } else {
@@ -57,11 +58,17 @@ function Palette({
         // left, top, right or background
         setSelectedColors((previousColors) => {
           const copiedColors = Object.assign({}, previousColors);
-          copiedColors[colorTarget] = color;
+          copiedColors[colorTarget] = trimmedColor;
           return copiedColors;
         })
 
+        if (colorTarget === 'background') {
+          const contrastedTextRgb = textContrastedGrey(trimmedColor);
+          setContrastedTextColor(contrastedTextRgb);
+        }
+
         addToColorHistory(color);
+
         changeInput('');
       }
     }
@@ -171,76 +178,107 @@ function Palette({
             <p>And apply it to:</p>
             <div
               className="color-targets"
-              style={{
-                backgroundColor: selectedColors.background
-              }}
             >
               <div
-                className="faces-wrapper"
+                style={{
+                  backgroundColor: selectedColors.background
+                }}
               >
-                <button
-                  type="button"
-                  disabled={colorInput === ''}
+                <div
+                  className="faces-wrapper"
                 >
-                  <svg
-                    viewBox="0 0 0.8660 1.5"
+                  <button
+                    type="button"
+                    disabled={colorInput === ''}
                   >
-                    <polygon
-                      onClick={() => applyColor(colorInput, 'left')}
-                      points="0,0 0.8660,0.5 0.8660,1.5 0,1"
+                    <svg
+                      viewBox="0 0 0.8660 1.5"
+                    >
+                      <polygon
+                        onClick={() => applyColor(colorInput, 'left')}
+                        points="0,0 0.8660,0.5 0.8660,1.5 0,1"
+                        style={{
+                          fill: selectedColors.left,
+                        }}
+                      >
+                      </polygon>
+                    </svg>
+                    <p
+                      className="selected-color-text"
                       style={{
-                        fill: selectedColors.left,
+                        color: `rgb(${contrastedTextColor[0]}, ${contrastedTextColor[1]}, ${contrastedTextColor[2]})`
                       }}
                     >
-                    </polygon>
-                  </svg>
-                  {selectedColors.left}
-                </button>
-                <button
-                  type="button"
-                  disabled={colorInput === ''}
-                >
-                  <svg
-                    viewBox="0 0 1.7321 1"
+                      {selectedColors.left}
+                    </p>
+                  </button>
+                  <button
+                    type="button"
+                    disabled={colorInput === ''}
                   >
-                    <polygon
-                      onClick={() => applyColor(colorInput, 'top')}
-                      points="0.8660,0 1.7321,0.5 0.8660,1 0,0.5"
+                    <svg
+                      viewBox="0 0 1.7321 1"
+                    >
+                      <polygon
+                        onClick={() => applyColor(colorInput, 'top')}
+                        points="0.8660,0 1.7321,0.5 0.8660,1 0,0.5"
+                        style={{
+                          fill: selectedColors.top,
+                        }}
+                      >
+                      </polygon>
+                    </svg>
+                    <p
+                      className="selected-color-text"
                       style={{
-                        fill: selectedColors.top,
+                        color: `rgb(${contrastedTextColor[0]}, ${contrastedTextColor[1]}, ${contrastedTextColor[2]})`
                       }}
                     >
-                    </polygon>
-                  </svg>
-                  {selectedColors.top}
-                </button>
-                <button
-                  type="button"
-                  disabled={colorInput === ''}
-                >
-                  <svg
-                    viewBox="0 0 0.8660 1.5"
+                      {selectedColors.top}
+                    </p>
+                  </button>
+                  <button
+                    type="button"
+                    disabled={colorInput === ''}
                   >
-                    <polygon
-                      onClick={() => applyColor(colorInput, 'right')}
-                      points="0.8660,0 0.8660,1 0,1.5 0,0.5"
+                    <svg
+                      viewBox="0 0 0.8660 1.5"
+                    >
+                      <polygon
+                        onClick={() => applyColor(colorInput, 'right')}
+                        points="0.8660,0 0.8660,1 0,1.5 0,0.5"
+                        style={{
+                          fill: selectedColors.right,
+                        }}
+                      >
+                      </polygon>
+                    </svg>
+                    <p
+                      className="selected-color-text"
                       style={{
-                        fill: selectedColors.right,
+                        color: `rgb(${contrastedTextColor[0]}, ${contrastedTextColor[1]}, ${contrastedTextColor[2]})`
                       }}
                     >
-                    </polygon>
-                  </svg>
-                  {selectedColors.right}
+                      {selectedColors.right}
+                    </p>
+                  </button>
+                </div>
+                <button
+                  className="background-target"
+                  type="button"
+                  disabled={colorInput === ''}
+                  onClick={() => applyColor(colorInput, 'background')}
+                >
+                  <p
+                    className="selected-color-text"
+                    style={{
+                      color: `rgb(${contrastedTextColor[0]}, ${contrastedTextColor[1]}, ${contrastedTextColor[2]})`
+                    }}
+                  >
+                    {`Background: ${selectedColors.background}`}
+                  </p>
                 </button>
               </div>
-              <button
-                className="background-target"
-                type="button"
-                disabled={colorInput === ''}
-                onClick={() => applyColor(colorInput, 'background')}
-              >
-                {`background: ${selectedColors.background}`}
-              </button>
             </div>
             <div
               className="color-list"
