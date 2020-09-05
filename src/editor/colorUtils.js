@@ -71,7 +71,7 @@ function luminance(r, g, b) {
 
 const whiteLum = luminance(255, 255, 255);
 
-// to get a grey text that can contrast with the background color.
+// to get a grey grid that can contrast with the background color.
 // under the background there is a default layer of white to be able to calculate
 // background luminance in case alpha channel is present in background color
 function gridContrastedGrey(cssColor) {
@@ -88,7 +88,7 @@ function gridContrastedGrey(cssColor) {
   return lum > 0.5 ? [137, 137, 137] : [225, 225, 225];
 }
 
-// to get a grey grid that can contrast with the background color.
+// to get a grey text that can contrast with the background color.
 // under the background there is a default layer of white to be able to calculate
 // background luminance in case alpha channel is present in background color
 function textContrastedGrey(cssColor) {
