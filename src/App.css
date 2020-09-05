@@ -45,13 +45,13 @@
 
 .info-btn, .back-to-editor-btn {
   height: 36px;
-  border: none;
 }
 
 .info-btn {
   padding: 0;
   margin: 12px 22px;
   background-color: transparent;
+  border: none;
 }
 
 .back-to-editor-btn {
@@ -59,6 +59,7 @@
   background-color: #181818;
   padding: 0 12px;
   border-radius: 5px;
+  border: 1px solid white;
 }
 
 .App-header button:focus {
