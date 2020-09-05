@@ -78,6 +78,12 @@ function Info() {
           alt="Representation of the purple face of the isometricks logo"
         />
       </div>
+      <p>
+        Please show us what you can do too!
+        <em className="hashtag">
+          #isometricks
+        </em>
+      </p>
     </div>
   );
 }
