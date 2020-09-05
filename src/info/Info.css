@@ -1,10 +1,14 @@
 
 .info-page {
   padding: 40px 40px 70px 40px;
-  max-width: 900px;
+  max-width: 1050px;
 }
 
 .info-page .hashtag {
   margin-left: 8px;
   color: #555555;
+}
+
+.info-page .example-image {
+  margin: 30px;
 }

@@ -15,7 +15,7 @@ const START_GRID_DIMENSIONS = {
 };
 
 // default colors on start
-const LEFT_START_COLOR = 'royalblue';
+const LEFT_START_COLOR = 'dodgerblue';
 const TOP_START_COLOR = 'lightskyblue';
 const RIGHT_START_COLOR = 'mediumblue';
 const BACKGROUND_START_COLOR = 'white';

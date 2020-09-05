@@ -58,6 +58,26 @@ function Info() {
       <p>
         The code of this editor is open source and open to collaboration on Github. Feel free to <a href="https://github.com/NicolasLetellier/isometricks">have a look</a> and see how it works under the hood!
       </p>
+      <h2>
+        Some examples:
+      </h2>
+      <div>
+        <img
+          className="example-image"
+          src="blueTriangleIllusion.svg"
+          alt="Blue optical illusion"
+        />
+        <img
+          className="example-image"
+          src="redConstruction.svg"
+          alt="Isometrick abstract construction in red"
+        />
+        <img
+          className="example-image"
+          src="isometricksFace.svg"
+          alt="Representation of the purple face of the isometricks logo"
+        />
+      </div>
     </div>
   );
 }
