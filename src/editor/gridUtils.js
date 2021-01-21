@@ -1,7 +1,7 @@
 
 // WARNING: It is assumed that we will only use the hexagon
 // orientation that is really usefull for isometric drawings:
-// hexagons 'pointy topped', for a grid with vertical lines
+// hexagons 'pointy topped', for a grid with vertical lines.
 // a LOT of calculations are extrapolated based on this assumption
 
 // Here we define this value (1) as a universal basis of the project.

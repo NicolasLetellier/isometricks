@@ -10,6 +10,8 @@ function Toolbar({
   setActiveFace,
   selectedColors,
   setSelectedColors,
+  onErasing,
+  toggleOnErasing,
   onDialog,
   setOnDialog,
   backwardInHistory,
@@ -79,15 +81,23 @@ function Toolbar({
             </g>
           </svg>
         </button>
-        <div
-          className="placeholder-for-future-button placeholder-for-eraser"
+        <button
+          type="button"
+          className={`erase toolbar-btn ${onErasing && 'active'}`}
+          disabled={onDialog !== null}
+          onClick={toggleOnErasing}
         >
-        </div>
+          <svg
+            viewBox="0 0 469.333 469.333"
+          >
+            <path d="M456.833,172.237L318.167,33.439c-8.061-8.068-19.109-12.103-30.159-12.105c-11.055-0.002-22.11,4.033-30.175,12.105 L12.5,279.006C4.437,287.076,0,297.794,0,309.201c0,11.407,4.406,22.094,12.594,30.289l95.51,93.318 c10.021,9.791,23.25,15.192,37.271,15.192h71.771c14.115,0,27.417-5.464,37.479-15.4l202.208-199.972 c8.063-8.07,12.5-18.789,12.5-30.195S464.896,180.308,456.833,172.237z M224.656,402.25c-2.052,2.021-4.646,3.083-7.51,3.083 h-71.771c-2.844,0-5.417-1.042-7.458-3.042l-95.25-92.958l110.708-110.708l137.844,137.854L224.656,402.25z"/>
+          </svg>
+        </button>
       </div>
       <div className="center-buttons">
         <button
           type="button"
-          disabled={onDialog !== null}
+          disabled={onDialog !== null || onErasing}
           className={`left toolbar-btn ${activeFace === 'left' && 'active'}`}
           onClick={() => setActiveFace('left')}
           >
@@ -102,7 +112,7 @@ function Toolbar({
         </button>
         <button
           type="button"
-          disabled={onDialog !== null}
+          disabled={onDialog !== null || onErasing}
           className={`top toolbar-btn ${activeFace === 'top' && 'active'}`}
           onClick={() => setActiveFace('top')}
           >
@@ -117,7 +127,7 @@ function Toolbar({
         </button>
         <button
           type="button"
-          disabled={onDialog !== null}
+          disabled={onDialog !== null || onErasing}
           className={`right toolbar-btn ${activeFace === 'right' && 'active'}`}
           onClick={() => setActiveFace('right')}
           >
