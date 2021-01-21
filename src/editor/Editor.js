@@ -32,6 +32,8 @@ function Editor() {
     right: RIGHT_START_COLOR,
     background: BACKGROUND_START_COLOR
   });
+  // onErasing: boolean
+  const [onErasing, setOnErasing] = useState(false);
   // onDialog possible values: null, 'grid size', 'palette'
   const [onDialog, setOnDialog] = useState(null);
   // history array of polygon stacks
@@ -44,7 +46,9 @@ function Editor() {
   useEffect(() => {
     setStacksHistory([[]]);
     setHistoryNavIndex(null);
+    setOnErasing(false);
   }, [gridDimensionsInTriangles]);
+
 
   // length shouldn't be less than 1
   const historyLastIndex = stacksHistory.length - 1;
@@ -91,7 +95,7 @@ function Editor() {
   // BE CAREFULL, it won't work in comparing 'shape' coords! (if ever implemented)
   // if exactly repeated polygons (same colors, etc...) it will give the impression
   // when using history nav that nothing was done on this action... but necesary if
-  // some parts of other faces are between the two equals polygons (stack order
+  // some parts of other faces are between the two equals polygons (when stack order
   // has to be corrected)
   function actualiseStack(previousStack, polygon) {
     let previousStackCopy = [...previousStack];
@@ -105,25 +109,25 @@ function Editor() {
     return previousStackCopy.concat(polygon);
   }
 
-  // truncate forward history to add new stack if currently in history navigation
-  function addPolygonIntoStacksHistory(polygon) {
+  // add polygon to copy of previous polygon stack
+  function addPolygonToPreviousStack(polygon) {
     const previousPolygonStack = stacksHistory[currentHistoryIndex()];
     const actualisedPolygonStack = actualiseStack(previousPolygonStack, polygon);
+    return actualisedPolygonStack;
+  }
+
+  // truncate forward history to add new stack if currently in history navigation
+  function addNewStackToHistory(stack) {
     const slicedHistory = stacksHistory.slice(0, currentHistoryIndex() + 1);
-    slicedHistory.push(actualisedPolygonStack);
+    slicedHistory.push(stack);
     setStacksHistory(slicedHistory);
     setHistoryNavIndex(null);
   }
 
-  function triangleClickHandler(triangleData) {
-    // activeFace set to null: inactivate any click event
-    // onDialog not null: inactivate any click event
-    if (activeFace === null || onDialog !== null) {
-      return;
-    }
-
-    let points; // coordinates of the polygon's points in SVG syntax
-    let fill; // any css color syntax accepted
+  // based on which face is active, return polygon related to clicked triangle
+  function relatedFacePolygon(activeFace, triangleData, selectedColors) {
+    let points; // coordinates of the polygon's points in SVG syntax (string)
+    let fill; // any css color syntax accepted (string)
     if (activeFace === 'left') {
       points = triangleData.leftFaceCoord;
       fill = selectedColors.left;
@@ -139,17 +143,56 @@ function Editor() {
       type: 'face', // other will be 'shape' if ever implemented?
       points,
       fill
-      // stroke and stroke-width: configurables too?
       // activeFace: needed? > probably, to tag the polygon
-      // for the feature of changing color of all similar faces at once
+      // for the feature of changing color of all similar faces at once.
+      // stroke and stroke-width: configurables too?
     };
+    return polygon;
+  };
 
-    addPolygonIntoStacksHistory(polygon);
+  function eraseClickedPolygon(triangleData) {
+    const previousPolygonStack = stacksHistory[currentHistoryIndex()];
+    let previousStackCopy = [...previousPolygonStack];
+    for (let i = 0; i < previousStackCopy.length; i++) {
+      // we are first erasing faces on top of stack: checking from
+      // the final of the array
+      const reversedIndex = previousStackCopy.length - (i + 1);
+      const polygonPoints = previousStackCopy[reversedIndex].points;
+      const pointsCoincidence = polygonPoints === triangleData.leftFaceCoord
+        || polygonPoints === triangleData.topFaceCoord
+        || polygonPoints === triangleData.rightFaceCoord;
+      if (pointsCoincidence) {
+        previousStackCopy.splice(reversedIndex, 1);
+        addNewStackToHistory(previousStackCopy);
+        break; // if another face below coincide, it has to be removed with another click
+      }
+    }
+  };
+
+  function triangleClickHandler(triangleData) {
+    // activeFace set to null: inactivate any click event
+    // onDialog not null: inactivate any click event
+    if (activeFace === null || onDialog !== null) {
+      return;
+    }
+
+    if (onErasing) {
+      eraseClickedPolygon(triangleData);
+    } else { // normal behaviour, i.e. not erasing
+      const polygon = relatedFacePolygon(activeFace, triangleData, selectedColors);
+      const newStack = addPolygonToPreviousStack(polygon);
+      addNewStackToHistory(newStack);
+    }
+
   }
 
   function buildAndSaveFile() {
     const displayedPolygonStack = stacksHistory[currentHistoryIndex()];
     buildAndSave(displayedPolygonStack, gridDimensionsInTriangles, selectedColors.background);
+  }
+
+  function toggleOnErasing() {
+    setOnErasing(prevStateOnErasing => !prevStateOnErasing);
   }
 
   return (
@@ -159,6 +202,8 @@ function Editor() {
         setActiveFace={setActiveFace}
         selectedColors={selectedColors}
         setSelectedColors={setSelectedColors}
+        onErasing={onErasing}
+        toggleOnErasing={toggleOnErasing}
         onDialog={onDialog}
         setOnDialog={setOnDialog}
         backwardInHistory={backwardInHistoryProp()}
