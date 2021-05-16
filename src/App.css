@@ -7,9 +7,6 @@
 /* minimum screen width supported by the header is 287 px, below this the
   info-btn will wrongly wrap into the toolbar */
 .App-header {
-  transition-property: height;
-  transition-duration: 0.2s;
-  transition-timing-function: ease;
   height: 61px;
   background: linear-gradient(0deg, #181818 40%, #282828);
   border-top: 1px solid #181818;
@@ -19,13 +16,10 @@
 }
 
 .App-header.info-header {
-  height: 104px;
+  height: 107px;
 }
 
 .App-logo {
-  transition-property: height, margin;
-  transition-duration: 0.2s;
-  transition-timing-function: ease;
   height: 36px;
   margin: 12px 22px;
 }
@@ -54,8 +48,11 @@
   border: none;
 }
 
-.back-to-editor-btn {
+.back-to-editor-link {
   margin: 12px 22px 12px auto;
+}
+
+.back-to-editor-btn {
   background-color: #181818;
   padding: 0 12px;
   border-radius: 5px;
