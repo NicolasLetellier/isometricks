@@ -141,8 +141,9 @@ function Editor() {
 
     const polygon = {
       type: 'face', // other will be 'shape' if ever implemented?
+      face: activeFace,
       points,
-      fill
+      fill,
       // activeFace: needed? > probably, to tag the polygon
       // for the feature of changing color of all similar faces at once.
       // stroke and stroke-width: configurables too?
@@ -168,6 +169,10 @@ function Editor() {
       }
     }
   };
+
+  function changeFaceColor(face, color) {
+    console.log(`Face: ${face}, color: ${color}`);
+  }
 
   function triangleClickHandler(triangleData) {
     // activeFace set to null: inactivate any click event
@@ -202,6 +207,7 @@ function Editor() {
         setActiveFace={setActiveFace}
         selectedColors={selectedColors}
         setSelectedColors={setSelectedColors}
+        changeFaceColor={changeFaceColor}
         onErasing={onErasing}
         toggleOnErasing={toggleOnErasing}
         onDialog={onDialog}

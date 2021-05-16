@@ -10,6 +10,7 @@ function Toolbar({
   setActiveFace,
   selectedColors,
   setSelectedColors,
+  changeFaceColor,
   onErasing,
   toggleOnErasing,
   onDialog,
@@ -147,6 +148,7 @@ function Toolbar({
           setOnDialog={setOnDialog}
           selectedColors={selectedColors}
           setSelectedColors={setSelectedColors}
+          changeFaceColor={changeFaceColor}
         />
       </div>
     </div>
