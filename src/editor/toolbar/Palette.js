@@ -11,9 +11,11 @@ function Palette({
   onDialog,
   setOnDialog,
   selectedColors,
-  setSelectedColors
+  setSelectedColors,
+  changeFaceColor,
 }) {
   const [colorInput, setColorInput] = useState('');
+  const [onChangingFaceColor, setOnChangingFaceColor] = useState(false);
   // initialize colorHistory array with default start colors
   const [colorHistory, setColorHistory] = useState([
     selectedColors.background,
@@ -28,6 +30,7 @@ function Palette({
     setOnDialog(null);
     setColorInput('');
     setColorSyntaxErrorMessage(null);
+    setOnChangingFaceColor(false);
   }
 
   function toogleDialog() {
@@ -65,6 +68,11 @@ function Palette({
         if (colorTarget === 'background') {
           const contrastedTextRgb = textContrastedGrey(trimmedColor);
           setContrastedTextColor(contrastedTextRgb);
+        }
+
+        if (onChangingFaceColor) {
+          changeFaceColor(colorTarget, trimmedColor);
+          setOnChangingFaceColor(false);
         }
 
         addToColorHistory(color);
@@ -153,21 +161,23 @@ function Palette({
             <CloseDropdownButton
               onClick={closeDialog}
             />
-            <label>
-              Introduce any&nbsp;
-              <a
-                href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value"
-                target="_blank"
-                rel="noreferrer noopener"
+            <div className="color-input">
+              <label>
+                Introduce any&nbsp;
+                <a
+                  href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value"
+                  target="_blank"
+                  rel="noreferrer noopener"
+                >
+                  CSS color
+                </a>
+                , or pick one from history:</label>
+              <input
+                value={colorInput}
+                onChange={(event) => changeInput(event.target.value)}
               >
-                CSS color
-              </a>
-              , or rescue one from history:</label>
-            <input
-              value={colorInput}
-              onChange={(event) => changeInput(event.target.value)}
-            >
-            </input>
+              </input>
+            </div>
             {colorSyntaxErrorMessage && (
               <p
                 className="color-syntax-error-message"
@@ -176,6 +186,16 @@ function Palette({
               </p>
             )}
             <p>And apply it to:</p>
+            <div className="color-change-checkbox">
+              <input
+                type="checkbox"
+                id="color-change"
+                checked={onChangingFaceColor}
+                disabled={colorInput === ''}
+                onChange={() => setOnChangingFaceColor(!onChangingFaceColor)}
+              />
+              <label htmlFor="color-change">color existing faces</label>
+            </div>
             <div
               className="color-targets"
             >
@@ -266,7 +286,7 @@ function Palette({
                 <button
                   className="background-target"
                   type="button"
-                  disabled={colorInput === ''}
+                  disabled={colorInput === '' || onChangingFaceColor}
                   onClick={() => applyColor(colorInput, 'background')}
                 >
                   <p
