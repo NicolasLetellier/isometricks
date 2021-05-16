@@ -171,7 +171,17 @@ function Editor() {
   };
 
   function changeFaceColor(face, color) {
-    console.log(`Face: ${face}, color: ${color}`);
+    const previousPolygonStack = stacksHistory[currentHistoryIndex()];
+    const newPolygonStack = previousPolygonStack.map(polygon => {
+      if (polygon.face === face) {
+        return ({
+          ...polygon,
+          fill: color,
+        });
+      }
+      return polygon;
+    });
+    addNewStackToHistory(newPolygonStack);
   }
 
   function triangleClickHandler(triangleData) {
