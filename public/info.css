@@ -1,0 +1,111 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.app {
+  font-size: 1em;
+  color: #282828;
+}
+
+.app-header.info-header {
+  height: 107px;
+  background: linear-gradient(0deg, #181818 40%, #282828);
+  border-top: 1px solid #181818;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.app a {
+  text-decoration: none;
+}
+
+.app a:hover {
+  text-decoration: underline;
+}
+
+.info-header .app-logo {
+  height: 54px;
+  margin: 24px 32px 24px 36px;
+}
+
+.back-to-editor-btn {
+  height: 36px;
+}
+
+.back-to-editor-link {
+  margin: 12px 22px 12px auto;
+}
+
+.back-to-editor-btn {
+  background-color: #181818;
+  padding: 0 12px;
+  border-radius: 5px;
+  border: 1px solid white;
+}
+
+.app-header button:focus {
+  outline: none;
+}
+
+.info-btn svg {
+  padding: 4px;
+  height: 28px;
+  width: 28px;
+  fill: #dadada;
+}
+
+.info-btn:hover {
+  cursor: pointer;
+}
+
+.info-btn:hover svg {
+  fill: #ffffff;
+}
+
+.back-to-editor-btn {
+  color: #dadada;
+  font-size: 18px;
+}
+
+.back-to-editor-btn:hover {
+  cursor: pointer;
+  color: #ffffff;
+}
+
+.info-page {
+  padding: 40px 40px 70px 40px;
+  max-width: 1050px;
+}
+
+.info-page .hashtag {
+  margin-left: 8px;
+  color: #555555;
+}
+
+.info-page .example-image {
+  margin: 30px;
+}
+
+@media all and (max-width: 768px) {
+
+  .info-page .example-image {
+    max-width: 300px;
+    margin: 20px;
+  }
+}
+
+@media all and (max-width: 400px) {
+  .info-page {
+    padding: 30px 20px 40px 20px
+  }
+
+  .info-page .example-image {
+    margin: 20px 0 20px 0;
+  }
+}

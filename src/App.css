@@ -15,10 +15,6 @@
   justify-content: space-between;
 }
 
-.App-header.info-header {
-  height: 107px;
-}
-
 .App-logo {
   height: 36px;
   margin: 12px 22px;
@@ -32,31 +28,12 @@
   text-decoration: underline;
 }
 
-.info-header .App-logo {
-  height: 54px;
-  margin: 24px 32px 24px 36px;
-}
-
-.info-btn, .back-to-editor-btn {
-  height: 36px;
-}
-
 .info-btn {
+  height: 36px;
   padding: 0;
   margin: 12px 22px;
   background-color: transparent;
   border: none;
-}
-
-.back-to-editor-link {
-  margin: 12px 22px 12px auto;
-}
-
-.back-to-editor-btn {
-  background-color: #181818;
-  padding: 0 12px;
-  border-radius: 5px;
-  border: 1px solid white;
 }
 
 .App-header button:focus {
@@ -76,14 +53,4 @@
 
 .info-btn:hover svg {
   fill: #ffffff;
-}
-
-.back-to-editor-btn {
-  color: #dadada;
-  font-size: 18px;
-}
-
-.back-to-editor-btn:hover {
-  cursor: pointer;
-  color: #ffffff;
 }
