@@ -7,7 +7,7 @@ import './Toolbar.css';
 
 function Toolbar({
   activeFace,
-  setActiveFace,
+  selectActiveFace,
   selectedColors,
   setSelectedColors,
   changeFaceColor,
@@ -98,9 +98,9 @@ function Toolbar({
       <div className="center-buttons">
         <button
           type="button"
-          disabled={onDialog !== null || onErasing}
+          disabled={onDialog !== null}
           className={`left toolbar-btn ${activeFace === 'left' && 'active'}`}
-          onClick={() => setActiveFace('left')}
+          onClick={() => selectActiveFace('left')}
           >
           <svg
             viewBox="0 0 0.8660 1.5"
@@ -113,9 +113,9 @@ function Toolbar({
         </button>
         <button
           type="button"
-          disabled={onDialog !== null || onErasing}
+          disabled={onDialog !== null}
           className={`top toolbar-btn ${activeFace === 'top' && 'active'}`}
-          onClick={() => setActiveFace('top')}
+          onClick={() => selectActiveFace('top')}
           >
           <svg
             viewBox="0 0 1.7321 1"
@@ -128,9 +128,9 @@ function Toolbar({
         </button>
         <button
           type="button"
-          disabled={onDialog !== null || onErasing}
+          disabled={onDialog !== null}
           className={`right toolbar-btn ${activeFace === 'right' && 'active'}`}
-          onClick={() => setActiveFace('right')}
+          onClick={() => selectActiveFace('right')}
           >
           <svg
             viewBox="0 0 0.8660 1.5"
