@@ -149,7 +149,7 @@ function Editor() {
       // stroke and stroke-width: configurables too?
     };
     return polygon;
-  };
+  }
 
   function eraseClickedPolygon(triangleData) {
     const previousPolygonStack = stacksHistory[currentHistoryIndex()];
@@ -168,7 +168,7 @@ function Editor() {
         break; // if another face below coincide, it has to be removed with another click
       }
     }
-  };
+  }
 
   function changeFaceColor(face, color) {
     const previousPolygonStack = stacksHistory[currentHistoryIndex()];
@@ -210,11 +210,16 @@ function Editor() {
     setOnErasing(prevStateOnErasing => !prevStateOnErasing);
   }
 
+  function selectActiveFace(face) {
+    setOnErasing(false);
+    setActiveFace(face);
+  }
+
   return (
     <div className="Editor">
       <Toolbar
         activeFace={activeFace}
-        setActiveFace={setActiveFace}
+        selectActiveFace={selectActiveFace}
         selectedColors={selectedColors}
         setSelectedColors={setSelectedColors}
         changeFaceColor={changeFaceColor}
