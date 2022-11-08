@@ -11,6 +11,13 @@ function GridSize({
   setGridDimensionsInTriangles
 }) {
   const emptyDimension = '';
+  const mobileDefaultWidth = 16;
+  const mobileDefaultHeight = 19;
+  const desktopDefaultWidth = 46;
+  const desktopDefaultHeight = 20;
+  const maxWidth = 80;
+  const maxHeight = 50;
+
   const [selectedWidth, setSelectedWidth] = useState(emptyDimension);
   const [selectedHeight, setSelectedHeight] = useState(emptyDimension);
 
@@ -54,7 +61,7 @@ function GridSize({
       setSelectedWidth(emptyDimension);
       return;
     }
-    if (width > 0 && width <= 80){
+    if (width > 0 && width <= maxWidth){
       setSelectedWidth(width);
     }
   }
@@ -65,7 +72,7 @@ function GridSize({
       setSelectedHeight(emptyDimension);
       return;
     }
-    if (height > 0 && height <= 50){
+    if (height > 0 && height <= maxHeight){
       setSelectedHeight(height);
     }
   }
@@ -105,13 +112,14 @@ function GridSize({
                   id="mobile-size"
                   type="radio"
                   name="size"
+                  checked={selectedWidth === mobileDefaultWidth && selectedHeight === mobileDefaultHeight}
                   onClick={() => {
-                    setSelectedWidth(16);
-                    setSelectedHeight(19);
+                    setSelectedWidth(mobileDefaultWidth);
+                    setSelectedHeight(mobileDefaultHeight);
                   }}
                 />
                 <label htmlFor="mobile-size">
-                  smartphone (16x19)
+                  {`smartphone (${mobileDefaultWidth.toString()}x${mobileDefaultHeight.toString()})`}
                 </label>
               </div>
               <div className="radio-component">
@@ -119,18 +127,19 @@ function GridSize({
                   id="desktop-size"
                   type="radio"
                   name="size"
+                  checked={selectedWidth === desktopDefaultWidth && selectedHeight === desktopDefaultHeight}
                   onClick={() => {
-                    setSelectedWidth(46);
-                    setSelectedHeight(20);
+                    setSelectedWidth(desktopDefaultWidth);
+                    setSelectedHeight(desktopDefaultHeight);
                   }}
                 />
                 <label htmlFor="desktop-size">
-                  desktop (46x20)
+                  {`desktop (${desktopDefaultWidth.toString()}x${desktopDefaultHeight.toString()})`}
                 </label>
               </div>
             </div>
             <p className="custom-dimensions-instructions">
-              Or custom width and height (max 80x50):
+              {`Or custom width and height (max ${maxWidth.toString()}x${maxHeight.toString()}):`}
             </p>
             <div className="custom-dimensions-inputs">
               <input
@@ -159,7 +168,7 @@ function GridSize({
               disabled={!(selectedWidth && selectedHeight)}
               onClick={() => applySelection()}
             >
-              Apply
+              New grid
             </button>
           </div>
         </div>
