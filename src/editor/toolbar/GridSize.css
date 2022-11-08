@@ -15,13 +15,20 @@
   background-color: #f6f6f6;
 }
 
-.grid-size-dropdown p.size-instructions {
-  margin: 0 0 24px 0;
+.grid-size-dropdown p.proposed-dimensions-instructions,
+.grid-size-dropdown p.custom-dimensions-instructions {
+  margin: 8px 0 20px 0;
+}
+
+.grid-size-dropdown .proposed-dimensions-inputs,
+.grid-size-dropdown .custom-dimensions-inputs {
+  padding: 0 0 10px 10px;
 }
 
 .radio-component {
-  margin-bottom: 18px;
+  margin-bottom: 14px;
 }
+
 .radio-component label {
   margin-left: 6px;
 }
@@ -30,8 +37,29 @@
   cursor: pointer;
 }
 
+.grid-size-dropdown .custom-dimensions-inputs {
+  padding-bottom: 14px;
+}
+
+.grid-size-dropdown .custom-dimensions-inputs p {
+  padding: 6px;
+  margin: 16px 6px;
+  display: inline;
+}
+
+.grid-size-dropdown .custom-dimensions-inputs input {
+  padding: 6px;
+  font-size: 1em;
+  border: 1px solid #cccccc;
+  width: 50px;
+}
+
+.grid-size-dropdown .custom-dimensions-inputs input:focus {
+  outline: none;
+}
+
 .apply-grid-size {
-  margin-top: 10px;
+  margin-top: 16px;
   margin-right: 28px;
 }
 
@@ -42,7 +70,7 @@
   border: 1px solid #bbbbbb;
 }
 
-.dialog-btn:hover {
+.dialog-btn:hover, .dialog-btn:focus {
   background-color: #eaeaea;
   border: 1px solid #aaaaaa;
 }

@@ -31,4 +31,4 @@ The font used in the isometricks logo is [baloo](https://www.fontsquirrel.com/fo
 
 The icons used in the toolbar are made by [Freepik](https://www.flaticon.com/authors/freepik), [bqlqn](https://www.flaticon.com/authors/bqlqn), [Roundicons](https://www.flaticon.com/authors/roundicons) and [Those Icons](https://www.flaticon.com/authors/those-icons) from [www.flaticon.com](https://www.flaticon.com/), even if their SVGs are modified and/or embedded in code.
 
-Copyright (C) 2019-2021  Nicolas Letellier
+Copyright (C) 2019-2022  Nicolas Letellier

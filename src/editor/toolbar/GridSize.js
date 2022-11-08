@@ -10,20 +10,29 @@ function GridSize({
   setOnDialog,
   setGridDimensionsInTriangles
 }) {
-  const [selectedDimensions, setSelectedDimensions] = useState(null);
+  const emptyDimension = '';
+  const [selectedWidth, setSelectedWidth] = useState(emptyDimension);
+  const [selectedHeight, setSelectedHeight] = useState(emptyDimension);
+
+  function translateHeightFacesToTriangles(heightFaces) {
+    return (heightFaces*2)+2;
+  }
 
   function applySelection() {
-    if (selectedDimensions !== null) {
-      setGridDimensionsInTriangles(selectedDimensions);
-      setSelectedDimensions(null);
+    if (selectedWidth && selectedHeight) {
+      setGridDimensionsInTriangles({
+        width: selectedWidth,
+        height: translateHeightFacesToTriangles(selectedHeight)
+      });
     }
+    setSelectedWidth(emptyDimension);
+    setSelectedHeight(emptyDimension);
     setOnDialog(null);
   }
 
   function closeDialog() {
-    if (selectedDimensions !== null) {
-      setSelectedDimensions(null);
-    }
+    setSelectedWidth(emptyDimension);
+    setSelectedHeight(emptyDimension);
     setOnDialog(null);
   }
 
@@ -32,6 +41,32 @@ function GridSize({
       setOnDialog('grid size');
     } else if (onDialog === 'grid size') {
       closeDialog();
+    }
+  }
+
+  function stringToNumber(string) {
+    return parseInt(string, 10);
+  }
+
+  function changeWidth(stringWidth) {
+    const width = stringToNumber(stringWidth);
+    if (stringWidth === '' || Number.isNaN(width)) {
+      setSelectedWidth(emptyDimension);
+      return;
+    }
+    if (width > 0 && width <= 80){
+      setSelectedWidth(width);
+    }
+  }
+
+  function changeHeight(stringHeight) {
+    const height = stringToNumber(stringHeight);
+    if (stringHeight === ''|| Number.isNaN(height)) {
+      setSelectedHeight(emptyDimension);
+      return;
+    }
+    if (height > 0 && height <= 50){
+      setSelectedHeight(height);
     }
   }
 
@@ -61,41 +96,67 @@ function GridSize({
             <CloseDropdownButton
               onClick={closeDialog}
             />
-            <p className="size-instructions">
-              Select a size for a new <strong>empty</strong> grid:
+            <p className="proposed-dimensions-instructions">
+              Select dimensions for a new <strong>empty</strong> grid:
             </p>
-            <div className="radio-component">
-              <input
-                id="mobile-size"
-                type="radio"
-                name="size"
-                onClick={() => setSelectedDimensions({
-                  width: 16,
-                  height: 39
-                })}
-              />
-              <label htmlFor="mobile-size">
-                for mobile phone (16 x 39)
-              </label>
+            <div className="proposed-dimensions-inputs">
+              <div className="radio-component">
+                <input
+                  id="mobile-size"
+                  type="radio"
+                  name="size"
+                  onClick={() => {
+                    setSelectedWidth(16);
+                    setSelectedHeight(19);
+                  }}
+                />
+                <label htmlFor="mobile-size">
+                  smartphone (16x19)
+                </label>
+              </div>
+              <div className="radio-component">
+                <input
+                  id="desktop-size"
+                  type="radio"
+                  name="size"
+                  onClick={() => {
+                    setSelectedWidth(46);
+                    setSelectedHeight(20);
+                  }}
+                />
+                <label htmlFor="desktop-size">
+                  desktop (46x20)
+                </label>
+              </div>
             </div>
-            <div className="radio-component">
+            <p className="custom-dimensions-instructions">
+              Or custom width and height (max 80x50):
+            </p>
+            <div className="custom-dimensions-inputs">
               <input
-                id="desktop-size"
-                type="radio"
-                name="size"
-                onClick={() => setSelectedDimensions({
-                  width: 46,
-                  height: 39
-                })}
-              />
-              <label htmlFor="desktop-size">
-                for desktop (46 x 39)
-              </label>
+                className="custom-size-input"
+                type="text"
+                inputMode="numeric"
+                pattern="\d*"
+                value={selectedWidth.toString()}
+                onChange={(event) => changeWidth(event.target.value)}
+              >
+              </input>
+              <p>x</p>
+              <input
+                className="custom-size-input"
+                type="text"
+                inputMode="numeric"
+                pattern="\d*"
+                value={selectedHeight.toString()}
+                onChange={(event) => changeHeight(event.target.value)}
+              >
+              </input>
             </div>
             <button
               type="button"
               className="apply-grid-size dialog-btn"
-              disabled={selectedDimensions === null}
+              disabled={!(selectedWidth && selectedHeight)}
               onClick={() => applySelection()}
             >
               Apply
